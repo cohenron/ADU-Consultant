@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="ADU"/>
+  <meta name="theme-color" content="#0d0f0d"/>
+  <title>ADU Consultant</title>
+
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<!-- ══ BOTTOM TAB BAR ═══════════════════════════════════════════════════════ -->
+<nav id="tab-bar">
+  <button class="tab active" data-view="analyze">
+    <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+    <span>Analyze</span>
+  </button>
+  <button class="tab" data-view="history">
+    <svg viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    <span>History</span>
+  </button>
+  <button class="tab" data-view="settings">
+    <svg viewBox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
+    <span>Settings</span>
+  </button>
+</nav>
+
+<!-- ══ VIEWS ═════════════════════════════════════════════════════════════════ -->
+<div id="app">
+
+  <!-- ── ANALYZE ──────────────────────────────────────────────────────────── -->
+  <div class="view active" id="view-analyze">
+    <div class="view-scroll">
+
+      <div class="page-header">
+        <div class="page-header-top">
+          <div class="brand">ADU<span>consultant</span></div>
+          <div class="api-pill" id="api-pill">
+            <span class="pill-dot" id="pill-dot"></span>
+            <span id="pill-text">Setup needed</span>
+          </div>
+        </div>
+        <h1>New <em>Analysis</em></h1>
+      </div>
+
+      <!-- Client -->
+      <div class="card-section">
+        <div class="section-eyebrow">01 — Client</div>
+        <div class="field-group">
+          <div class="field">
+            <label>Client Name</label>
+            <input id="f-name" type="text" placeholder="Jane & John Smith" autocomplete="name"/>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Email</label>
+              <input id="f-email" type="email" placeholder="client@email.com" autocomplete="email"/>
+            </div>
+            <div class="field">
+              <label>Phone</label>
+              <input id="f-phone" type="tel" placeholder="(555) 000-0000" autocomplete="tel"/>
+            </div>
+          </div>
+          <div class="field">
+            <label>Quick Notes</label>
+            <textarea id="f-notes" rows="2" placeholder="Consultation notes…"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Property -->
+      <div class="card-section">
+        <div class="section-eyebrow">02 — Property</div>
+        <div class="field-group">
+          <div class="field">
+            <label>Street Address *</label>
+            <input id="f-address" type="text" placeholder="123 Main Street" autocomplete="street-address"/>
+          </div>
+          <div class="field-row">
+            <div class="field flex2">
+              <label>City *</label>
+              <input id="f-city" type="text" placeholder="Los Angeles"/>
+            </div>
+            <div class="field flex1">
+              <label>State</label>
+              <select id="f-state">
+                <option>CA</option><option>WA</option><option>OR</option>
+                <option>AZ</option><option>TX</option><option>FL</option>
+                <option>CO</option><option>NY</option><option>NV</option>
+                <option>ID</option><option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Lot Size (sq ft) *</label>
+              <input id="f-lot" type="number" placeholder="6000" inputmode="numeric"/>
+            </div>
+            <div class="field">
+              <label>Home Size (sq ft) *</label>
+              <input id="f-home" type="number" placeholder="1800" inputmode="numeric"/>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Year Built</label>
+              <input id="f-year" type="number" placeholder="1965" inputmode="numeric"/>
+            </div>
+            <div class="field">
+              <label>Owner Occupied?</label>
+              <select id="f-owner">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+                <option value="unknown">Unknown</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Zoning -->
+      <div class="card-section">
+        <div class="section-eyebrow">03 — Zoning <span class="opt-tag">optional</span></div>
+        <div class="field-group">
+          <div class="field-row">
+            <div class="field">
+              <label>Zoning Code</label>
+              <input id="f-zoning" type="text" placeholder="R1, R2…"/>
+            </div>
+            <div class="field">
+              <label>Max Coverage %</label>
+              <input id="f-coverage" type="number" placeholder="40" inputmode="numeric"/>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Max FAR</label>
+              <input id="f-far" type="number" step="0.1" placeholder="0.5" inputmode="decimal"/>
+            </div>
+            <div class="field">
+              <label>Rear Setback (ft)</label>
+              <input id="f-rear" type="number" placeholder="4" inputmode="numeric"/>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Side Setback (ft)</label>
+              <input id="f-side" type="number" placeholder="4" inputmode="numeric"/>
+            </div>
+            <div class="field">
+              <label>Height Limit (ft)</label>
+              <input id="f-height" type="number" placeholder="16" inputmode="numeric"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADU Types -->
+      <div class="card-section">
+        <div class="section-eyebrow">04 — ADU Types</div>
+        <div class="chip-grid" id="f-types">
+          <label class="chip"><input type="checkbox" value="Detached ADU"/><span>Detached ADU</span></label>
+          <label class="chip"><input type="checkbox" value="Attached ADU"/><span>Attached ADU</span></label>
+          <label class="chip"><input type="checkbox" value="Garage Conversion"/><span>Garage Conversion</span></label>
+          <label class="chip"><input type="checkbox" value="Junior ADU (JADU)"/><span>JADU</span></label>
+          <label class="chip"><input type="checkbox" value="Basement Conversion"/><span>Basement</span></label>
+          <label class="chip"><input type="checkbox" value="Second Story ADU"/><span>Second Story</span></label>
+        </div>
+
+        <div class="section-eyebrow" style="margin-top:20px">Constraints</div>
+        <div class="chip-grid" id="f-constraints">
+          <label class="chip"><input type="checkbox" value="HOA Restrictions"/><span>HOA</span></label>
+          <label class="chip"><input type="checkbox" value="Historic District"/><span>Historic</span></label>
+          <label class="chip"><input type="checkbox" value="Flood Zone"/><span>Flood Zone</span></label>
+          <label class="chip"><input type="checkbox" value="Steep Slope"/><span>Steep Slope</span></label>
+          <label class="chip"><input type="checkbox" value="Septic System"/><span>Septic</span></label>
+          <label class="chip"><input type="checkbox" value="Corner Lot"/><span>Corner Lot</span></label>
+          <label class="chip"><input type="checkbox" value="Alley Access"/><span>Alley</span></label>
+          <label class="chip"><input type="checkbox" value="Well Water"/><span>Well Water</span></label>
+        </div>
+      </div>
+
+      <!-- Goals -->
+      <div class="card-section">
+        <div class="section-eyebrow">05 — Goals</div>
+        <div class="field-group">
+          <div class="field-row">
+            <div class="field">
+              <label>Primary Goal</label>
+              <select id="f-goal-type">
+                <option value="rental income">Rental Income</option>
+                <option value="house family member">House Family</option>
+                <option value="increase property value">Property Value</option>
+                <option value="multi-generational living">Multi-Gen</option>
+                <option value="home office / studio">Office / Studio</option>
+                <option value="maximize lot potential">Maximize Lot</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Budget</label>
+              <select id="f-budget">
+                <option value="under $100k">Under $100k</option>
+                <option value="$100k–$150k">$100k–$150k</option>
+                <option value="$150k–$200k" selected>$150k–$200k</option>
+                <option value="$200k–$300k">$200k–$300k</option>
+                <option value="$300k+">$300k+</option>
+                <option value="flexible">Flexible</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Extra Notes</label>
+            <textarea id="f-goals" rows="3" placeholder="Anything the client mentioned…"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="form-actions">
+        <div id="form-error" class="form-error"></div>
+        <button id="analyze-btn" onclick="runAnalysis()">
+          <span id="btn-label">Run Analysis</span>
+          <span id="btn-loader" style="display:none">
+            <svg class="spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg>
+            Analyzing…
+          </span>
+        </button>
+        <button class="btn-ghost" onclick="clearForm()">Clear Form</button>
+      </div>
+
+    </div><!-- /view-scroll -->
+  </div><!-- /view-analyze -->
+
+  <!-- ── REPORT SHEET (slides up over form) ───────────────────────────────── -->
+  <div id="report-sheet" class="sheet">
+    <div class="sheet-handle-bar">
+      <div class="sheet-handle"></div>
+    </div>
+    <div class="sheet-header">
+      <button class="sheet-close" onclick="closeReport()">✕ Close</button>
+      <button class="sheet-print" onclick="window.print()">⬇ PDF</button>
+    </div>
+    <div class="sheet-scroll" id="report-content"></div>
+  </div>
+  <div id="sheet-backdrop" onclick="closeReport()"></div>
+
+  <!-- ── HISTORY ───────────────────────────────────────────────────────────── -->
+  <div class="view" id="view-history">
+    <div class="view-scroll">
+      <div class="page-header">
+        <h1>Consultation <em>History</em></h1>
+      </div>
+      <div id="history-list"></div>
+    </div>
+  </div>
+
+  <!-- ── SETTINGS ─────────────────────────────────────────────────────────── -->
+  <div class="view" id="view-settings">
+    <div class="view-scroll">
+      <div class="page-header">
+        <h1>Settings</h1>
+      </div>
+
+      <div class="card-section">
+        <div class="section-eyebrow">Anthropic API Key</div>
+        <p class="section-hint">Stored only on this device. Get yours at console.anthropic.com</p>
+        <div class="field" style="margin-top:14px">
+          <label>API Key</label>
+          <input id="s-apikey" type="password" placeholder="sk-ant-api03-…" autocomplete="off" autocorrect="off"/>
+        </div>
+        <button class="btn-primary-sm" onclick="saveApiKey()" style="margin-top:12px">Save Key</button>
+        <div id="key-saved" class="saved-msg" style="display:none">✓ Saved</div>
+      </div>
+
+      <div class="card-section">
+        <div class="section-eyebrow">Company</div>
+        <div class="field-group">
+          <div class="field">
+            <label>Company Name</label>
+            <input id="s-company" type="text" placeholder="My ADU Company"/>
+          </div>
+          <div class="field">
+            <label>Your Name</label>
+            <input id="s-consultant" type="text" placeholder="Ron"/>
+          </div>
+          <div class="field">
+            <label>Default State</label>
+            <select id="s-state">
+              <option>CA</option><option>WA</option><option>OR</option>
+              <option>AZ</option><option>TX</option><option>FL</option>
+              <option>CO</option><option>NY</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-primary-sm" onclick="saveSettings()" style="margin-top:12px">Save Settings</button>
+        <div id="settings-saved" class="saved-msg" style="display:none">✓ Saved</div>
+      </div>
+
+      <div class="card-section">
+        <div class="section-eyebrow">How to Install on iPhone</div>
+        <div class="install-steps">
+          <div class="install-step"><span class="step-n">1</span><span>Tap the <strong>Share</strong> button at the bottom of Safari (the square with arrow)</span></div>
+          <div class="install-step"><span class="step-n">2</span><span>Scroll down and tap <strong>"Add to Home Screen"</strong></span></div>
+          <div class="install-step"><span class="step-n">3</span><span>Tap <strong>Add</strong> — the ADU icon appears on your home screen</span></div>
+          <div class="install-step"><span class="step-n">4</span><span>Open it from your home screen — it runs fullscreen like a native app</span></div>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="section-eyebrow">Data</div>
+        <p class="section-hint">Everything is stored on this device. Nothing leaves except API calls to Anthropic.</p>
+        <button class="btn-danger-sm" onclick="clearHistory()" style="margin-top:12px">Clear All History</button>
+      </div>
+
+      <div style="height:40px"></div>
+    </div>
+  </div>
+
+</div><!-- /app -->
+
+<script src="js/app.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js');
+  }
+</script>
+</body>
+</html>
