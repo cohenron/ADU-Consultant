@@ -1,336 +1,1083 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-  <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-  <meta name="apple-mobile-web-app-title" content="ADU"/>
-  <meta name="theme-color" content="#0d0f0d"/>
-  <title>ADU Consultant</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ADU Pro">
+<meta name="theme-color" content="#0f1117">
+<link rel="manifest" href="manifest.json">
+<title>ADU Pro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f1117;
+  --bg2: #161821;
+  --bg3: #1e2030;
+  --border: rgba(255,255,255,0.08);
+  --border-h: rgba(255,255,255,0.18);
+  --text: #e8e6e0;
+  --soft: #9b9899;
+  --muted: #5a5860;
+  --gold: #d4a853;
+  --gold-d: rgba(212,168,83,0.15);
+  --gold-b: rgba(212,168,83,0.3);
+  --grn: #4caf78;
+  --grn-d: rgba(76,175,120,0.12);
+  --red: #e05c5c;
+  --red-d: rgba(224,92,92,0.12);
+  --r: 14px;
+  --rs: 9px;
+}
 
-  <link rel="manifest" href="manifest.json"/>
-  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="css/style.css"/>
+- { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; font-family: ‘Outfit’, sans-serif; background: var(–bg); color: var(–text); -webkit-font-smoothing: antialiased; }
+  body { overflow: hidden; }
+
+.app { display: flex; flex-direction: column; height: 100vh; height: 100dvh; max-width: 430px; margin: 0 auto; position: relative; }
+
+/* HEADER */
+.hdr { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 16px 20px 14px; border-bottom: 1px solid var(–border); background: var(–bg); z-index: 20; }
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-mark { width: 34px; height: 34px; background: var(–gold); border-radius: 9px; display: flex; align-items: center; justify-content: center; }
+.logo-mark svg { width: 18px; height: 18px; fill: var(–bg); }
+.logo-text { font-family: ‘Cormorant Garamond’, serif; font-size: 20px; font-weight: 600; color: var(–text); }
+.logo-text em { color: var(–gold); font-style: italic; }
+
+.topnav { display: flex; gap: 2px; background: var(–bg2); border: 1px solid var(–border); border-radius: 10px; padding: 3px; }
+.tnb { background: none; border: none; cursor: pointer; padding: 6px 11px; border-radius: 7px; font-family: ‘Outfit’, sans-serif; font-size: 12px; font-weight: 500; color: var(–soft); transition: color 0.18s; white-space: nowrap; display: flex; align-items: center; gap: 5px; }
+.tnb svg { width: 13px; height: 13px; flex-shrink: 0; }
+.tnb:hover { color: var(–text); }
+.tnb.active { background: var(–bg3); color: var(–gold); box-shadow: 0 1px 4px rgba(0,0,0,0.4); }
+
+/* SCREENS */
+.scr { display: none; flex-direction: column; flex: 1; min-height: 0; }
+.scr.active { display: flex; }
+
+/* NOTICES */
+.notice { margin: 14px 20px 0; border-radius: var(–rs); padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; line-height: 1.5; flex-shrink: 0; }
+.notice.warn { background: rgba(212,168,83,0.1); border: 1px solid var(–gold-b); color: #c8a245; }
+.notice.err { background: var(–red-d); border: 1px solid rgba(224,92,92,0.3); color: #e08080; }
+.notice.hidden { display: none !important; }
+.ni { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; fill: currentColor; }
+.notice strong { color: var(–text); display: block; margin-bottom: 2px; }
+.nlink { color: var(–gold); cursor: pointer; text-decoration: underline; font-size: 12px; }
+
+/* SCROLL */
+.scroll { flex: 1; overflow-y: auto; padding: 20px 20px 140px; -webkit-overflow-scrolling: touch; }
+.scroll::-webkit-scrollbar { width: 0; }
+
+/* SECTIONS */
+.sec { margin-bottom: 28px; }
+.sec-lbl { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.dot { width: 6px; height: 6px; background: var(–gold); border-radius: 50%; flex-shrink: 0; }
+.sec-title { font-family: ‘Cormorant Garamond’, serif; font-size: 17px; font-weight: 600; color: var(–text); }
+.sec-sub { font-size: 11px; color: var(–muted); margin-left: 4px; }
+
+/* ADDRESS BLOCK */
+.addr-card { background: var(–bg2); border: 1px solid var(–border); border-radius: var(–r); padding: 16px; position: relative; transition: border-color 0.18s; }
+.addr-card:focus-within { border-color: var(–gold-b); box-shadow: 0 0 0 3px var(–gold-d); }
+.addr-lbl { font-size: 11px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: var(–muted); margin-bottom: 8px; }
+.addr-card input { width: 100%; background: none; border: none; outline: none; font-family: ‘Outfit’, sans-serif; font-size: 16px; font-weight: 500; color: var(–text); caret-color: var(–gold); }
+.addr-card input::placeholder { color: var(–muted); font-weight: 400; }
+.addr-row { display: grid; grid-template-columns: 1fr 80px; gap: 10px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(–border); }
+.zbadge { position: absolute; top: 12px; right: 12px; font-size: 10px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; color: var(–gold); background: var(–gold-d); border: 1px solid var(–gold-b); border-radius: 6px; padding: 3px 7px; text-decoration: none; display: none; align-items: center; gap: 4px; }
+.zbadge:hover { background: rgba(212,168,83,0.25); }
+.zbadge.show { display: inline-flex; }
+
+/* FIELDS */
+.field { margin-bottom: 10px; }
+.field label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; color: var(–muted); margin-bottom: 5px; }
+.field input,
+.field select,
+.field textarea { width: 100%; background: var(–bg2); border: 1px solid var(–border); border-radius: var(–rs); padding: 10px 12px; font-family: ‘Outfit’, sans-serif; font-size: 14px; color: var(–text); outline: none; transition: border-color 0.18s, box-shadow 0.18s; -webkit-appearance: none; }
+.field input:focus,
+.field select:focus,
+.field textarea:focus { border-color: var(–gold-b); box-shadow: 0 0 0 3px var(–gold-d); }
+.field select option { background: var(–bg2); }
+.field textarea { resize: vertical; min-height: 64px; line-height: 1.5; }
+.frow { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* CHIPS */
+.chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.chip { padding: 7px 13px; border: 1px solid var(–border); border-radius: 20px; font-family: ‘Outfit’, sans-serif; font-size: 13px; font-weight: 400; color: var(–soft); background: var(–bg2); cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; transition: border-color 0.15s, color 0.15s, background 0.15s; }
+.chip:hover { border-color: var(–border-h); color: var(–text); }
+.chip.sel { background: var(–gold-d); border-color: var(–gold-b); color: var(–gold); }
+.chip.sel.grn { background: var(–grn-d); border-color: rgba(76,175,120,0.3); color: var(–grn); }
+
+/* DIVIDER */
+.hr { height: 1px; background: var(–border); margin: 4px 0 24px; }
+
+/* ACTION BAR */
+.abar { position: absolute; bottom: 0; left: 0; right: 0; padding: 14px 20px; padding-bottom: max(14px, env(safe-area-inset-bottom)); background: linear-gradient(to top, var(–bg) 70%, transparent); display: flex; gap: 10px; z-index: 10; }
+.btn-run { flex: 1; background: var(–gold); color: var(–bg); border: none; border-radius: var(–r); padding: 15px 20px; font-family: ‘Outfit’, sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; -webkit-tap-highlight-color: transparent; transition: background 0.18s, transform 0.18s, box-shadow 0.18s; }
+.btn-run:hover { background: #e0b55c; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(212,168,83,0.3); }
+.btn-run:disabled { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
+.btn-run svg { width: 17px; height: 17px; }
+.btn-clr { background: var(–bg2); border: 1px solid var(–border); color: var(–soft); border-radius: var(–r); padding: 15px 16px; font-family: ‘Outfit’, sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: border-color 0.15s, color 0.15s; }
+.btn-clr:hover { border-color: var(–border-h); color: var(–text); }
+
+.spin { width: 17px; height: 17px; border: 2px solid rgba(15,17,23,0.35); border-top-color: var(–bg); border-radius: 50%; animation: spin 0.65s linear infinite; flex-shrink: 0; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* DRAWER OVERLAY */
+.overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.7); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.overlay.open { display: flex; align-items: flex-end; justify-content: center; }
+.drawer { background: var(–bg2); border: 1px solid var(–border); border-bottom: none; border-radius: 20px 20px 0 0; width: 100%; max-width: 430px; max-height: 88vh; display: flex; flex-direction: column; animation: slideup 0.28s ease; }
+@keyframes slideup { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.dpill { width: 36px; height: 4px; background: var(–border-h); border-radius: 2px; margin: 12px auto 0; flex-shrink: 0; }
+.dhead { padding: 16px 20px; border-bottom: 1px solid var(–border); display: flex; align-items: flex-start; justify-content: space-between; flex-shrink: 0; gap: 12px; }
+.dtitle { font-family: ‘Cormorant Garamond’, serif; font-size: 19px; font-weight: 600; color: var(–text); line-height: 1.2; }
+.daddr { font-size: 12px; color: var(–muted); margin-top: 3px; }
+.dbtns { display: flex; gap: 7px; flex-shrink: 0; }
+.ib { width: 34px; height: 34px; border: 1px solid var(–border); border-radius: var(–rs); background: var(–bg3); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(–soft); transition: border-color 0.15s, color 0.15s, background 0.15s; }
+.ib svg { width: 15px; height: 15px; }
+.ib:hover { border-color: var(–gold-b); color: var(–gold); background: var(–gold-d); }
+.dbody { flex: 1; overflow-y: auto; padding: 20px; -webkit-overflow-scrolling: touch; }
+.dbody::-webkit-scrollbar { width: 0; }
+
+/* REPORT STYLES */
+.report h1 { font-family: ‘Cormorant Garamond’, serif; font-size: 22px; color: var(–text); margin-bottom: 6px; }
+.report h2 { font-family: ‘Cormorant Garamond’, serif; font-size: 17px; font-weight: 600; color: var(–gold); margin: 20px 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(–border); }
+.report h2:first-child { margin-top: 0; }
+.report h3 { font-size: 14px; font-weight: 600; color: var(–text); margin: 12px 0 5px; }
+.report p { font-size: 14px; line-height: 1.75; color: rgba(232,230,224,0.75); margin-bottom: 10px; }
+.report ul, .report ol { padding-left: 18px; margin-bottom: 12px; }
+.report li { font-size: 14px; line-height: 1.75; color: rgba(232,230,224,0.75); margin-bottom: 3px; }
+.report strong { color: var(–text); font-weight: 600; }
+.report em { color: var(–gold); font-style: italic; }
+.report hr { border: none; border-top: 1px solid var(–border); margin: 14px 0; }
+.zbtn { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; padding: 10px 16px; background: var(–gold-d); border: 1px solid var(–gold-b); border-radius: var(–rs); color: var(–gold); font-size: 13px; font-weight: 500; text-decoration: none; }
+.zbtn svg { width: 14px; height: 14px; }
+
+/* HISTORY */
+.lscroll { flex: 1; overflow-y: auto; padding: 20px; }
+.lscroll::-webkit-scrollbar { width: 0; }
+.empty { text-align: center; padding: 60px 20px; color: var(–muted); }
+.empty svg { width: 44px; height: 44px; fill: var(–bg3); margin-bottom: 14px; }
+.empty h3 { font-family: ‘Cormorant Garamond’, serif; font-size: 20px; color: var(–soft); margin-bottom: 6px; }
+.empty p { font-size: 13px; line-height: 1.6; }
+.hitem { background: var(–bg2); border: 1px solid var(–border); border-radius: var(–r); padding: 14px 16px; margin-bottom: 10px; cursor: pointer; transition: border-color 0.15s; }
+.hitem:hover { border-color: var(–border-h); }
+.hitem-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
+.hitem-name { font-size: 14px; font-weight: 500; color: var(–text); }
+.hitem-date { font-size: 11px; color: var(–muted); }
+.hitem-addr { font-size: 13px; color: var(–soft); margin-bottom: 8px; }
+.hitem-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.htag { font-size: 11px; color: var(–muted); background: var(–bg3); border: 1px solid var(–border); border-radius: 10px; padding: 2px 8px; }
+
+/* SETTINGS */
+.sscroll { flex: 1; overflow-y: auto; padding: 20px; }
+.sscroll::-webkit-scrollbar { width: 0; }
+.sgroup { margin-bottom: 24px; }
+.sgroup-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: var(–muted); margin-bottom: 10px; display: block; }
+.scard { background: var(–bg2); border: 1px solid var(–border); border-radius: var(–r); padding: 16px; }
+.scard-title { font-size: 14px; font-weight: 500; color: var(–text); margin-bottom: 3px; }
+.scard-desc { font-size: 12px; color: var(–muted); margin-bottom: 12px; line-height: 1.5; }
+.scard-desc a { color: var(–gold); }
+.kwrap { position: relative; }
+.kwrap .field { margin: 0; }
+.kwrap input { padding-right: 44px; letter-spacing: 0.5px; }
+.ktoggle { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(–muted); padding: 4px; line-height: 0; }
+.ktoggle svg { width: 16px; height: 16px; display: block; }
+.bsave { margin-top: 12px; padding: 9px 18px; background: var(–bg3); border: 1px solid var(–border); border-radius: var(–rs); font-family: ‘Outfit’, sans-serif; font-size: 13px; font-weight: 500; color: var(–soft); cursor: pointer; transition: border-color 0.15s, color 0.15s, background 0.15s; display: inline-flex; align-items: center; gap: 6px; }
+.bsave svg { width: 13px; height: 13px; }
+.bsave:hover { border-color: var(–gold-b); color: var(–gold); background: var(–gold-d); }
+.savedmsg { font-size: 12px; color: var(–grn); margin-top: 8px; display: none; align-items: center; gap: 5px; }
+.savedmsg.show { display: flex; }
+.savedmsg svg { width: 13px; height: 13px; fill: var(–grn); }
+.isteps { list-style: none; counter-reset: s; }
+.isteps li { counter-increment: s; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(–soft); line-height: 1.6; margin-bottom: 10px; }
+.isteps li::before { content: counter(s); width: 20px; height: 20px; min-width: 20px; background: var(–gold-d); border: 1px solid var(–gold-b); color: var(–gold); border-radius: 50%; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+.isteps li strong { color: var(–text); }
+.bdanger { padding: 9px 16px; background: none; border: 1px solid rgba(224,92,92,0.3); border-radius: var(–rs); color: var(–red); font-family: ‘Outfit’, sans-serif; font-size: 13px; cursor: pointer; transition: background 0.15s; }
+.bdanger:hover { background: var(–red-d); }
+
+/* SCREEN HEADER */
+.stop { padding: 20px 20px 4px; flex-shrink: 0; }
+.stop h2 { font-family: ‘Cormorant Garamond’, serif; font-size: 24px; font-weight: 600; color: var(–text); margin-bottom: 3px; }
+.stop h2 em { color: var(–gold); font-style: italic; }
+.stop p { font-size: 13px; color: var(–muted); }
+
+@media print {
+.overlay { position: relative; display: block; background: white; }
+.drawer { max-height: none; border: none; border-radius: 0; }
+.dpill, .dbtns, .zbtn { display: none; }
+body, .report p, .report li { color: #111; }
+.report h2 { color: #8a6a20; border-color: #ddd; }
+}
+</style>
+
 </head>
 <body>
+<div class="app">
 
-<!-- ══ BOTTOM TAB BAR ═══════════════════════════════════════════════════════ -->
-<nav id="tab-bar">
-  <button class="tab active" data-view="analyze">
-    <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-    <span>Analyze</span>
-  </button>
-  <button class="tab" data-view="history">
-    <svg viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-    <span>History</span>
-  </button>
-  <button class="tab" data-view="settings">
-    <svg viewBox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
-    <span>Settings</span>
-  </button>
-</nav>
+<!-- HEADER -->
 
-<!-- ══ VIEWS ═════════════════════════════════════════════════════════════════ -->
-<div id="app">
-
-  <!-- ── ANALYZE ──────────────────────────────────────────────────────────── -->
-  <div class="view active" id="view-analyze">
-    <div class="view-scroll">
-
-      <div class="page-header">
-        <div class="page-header-top">
-          <div class="brand">ADU<span>consultant</span></div>
-          <div class="api-pill" id="api-pill">
-            <span class="pill-dot" id="pill-dot"></span>
-            <span id="pill-text">Setup needed</span>
-          </div>
-        </div>
-        <h1>New <em>Analysis</em></h1>
-      </div>
-
-      <!-- Client -->
-      <div class="card-section">
-        <div class="section-eyebrow">01 — Client</div>
-        <div class="field-group">
-          <div class="field">
-            <label>Client Name</label>
-            <input id="f-name" type="text" placeholder="Jane & John Smith" autocomplete="name"/>
-          </div>
-          <div class="field-row">
-            <div class="field">
-              <label>Email</label>
-              <input id="f-email" type="email" placeholder="client@email.com" autocomplete="email"/>
-            </div>
-            <div class="field">
-              <label>Phone</label>
-              <input id="f-phone" type="tel" placeholder="(555) 000-0000" autocomplete="tel"/>
-            </div>
-          </div>
-          <div class="field">
-            <label>Quick Notes</label>
-            <textarea id="f-notes" rows="2" placeholder="Consultation notes…"></textarea>
-          </div>
-        </div>
-      </div>
-
-      <!-- Property -->
-      <div class="card-section">
-        <div class="section-eyebrow">02 — Property</div>
-        <div class="field-group">
-          <div class="field">
-            <label>Street Address *</label>
-            <input id="f-address" type="text" placeholder="123 Main Street" autocomplete="street-address"/>
-          </div>
-          <div class="field-row">
-            <div class="field flex2">
-              <label>City *</label>
-              <input id="f-city" type="text" placeholder="Los Angeles"/>
-            </div>
-            <div class="field flex1">
-              <label>State</label>
-              <select id="f-state">
-                <option>CA</option><option>WA</option><option>OR</option>
-                <option>AZ</option><option>TX</option><option>FL</option>
-                <option>CO</option><option>NY</option><option>NV</option>
-                <option>ID</option><option>Other</option>
-              </select>
-            </div>
-          </div>
-          <div class="field-row">
-            <div class="field">
-              <label>Lot Size (sq ft) *</label>
-              <input id="f-lot" type="number" placeholder="6000" inputmode="numeric"/>
-            </div>
-            <div class="field">
-              <label>Home Size (sq ft) *</label>
-              <input id="f-home" type="number" placeholder="1800" inputmode="numeric"/>
-            </div>
-          </div>
-          <div class="field-row">
-            <div class="field">
-              <label>Year Built</label>
-              <input id="f-year" type="number" placeholder="1965" inputmode="numeric"/>
-            </div>
-            <div class="field">
-              <label>Owner Occupied?</label>
-              <select id="f-owner">
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-                <option value="unknown">Unknown</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Zoning -->
-      <div class="card-section">
-        <div class="section-eyebrow">03 — Zoning <span class="opt-tag">optional</span></div>
-        <div class="field-group">
-          <div class="field-row">
-            <div class="field">
-              <label>Zoning Code</label>
-              <input id="f-zoning" type="text" placeholder="R1, R2…"/>
-            </div>
-            <div class="field">
-              <label>Max Coverage %</label>
-              <input id="f-coverage" type="number" placeholder="40" inputmode="numeric"/>
-            </div>
-          </div>
-          <div class="field-row">
-            <div class="field">
-              <label>Max FAR</label>
-              <input id="f-far" type="number" step="0.1" placeholder="0.5" inputmode="decimal"/>
-            </div>
-            <div class="field">
-              <label>Rear Setback (ft)</label>
-              <input id="f-rear" type="number" placeholder="4" inputmode="numeric"/>
-            </div>
-          </div>
-          <div class="field-row">
-            <div class="field">
-              <label>Side Setback (ft)</label>
-              <input id="f-side" type="number" placeholder="4" inputmode="numeric"/>
-            </div>
-            <div class="field">
-              <label>Height Limit (ft)</label>
-              <input id="f-height" type="number" placeholder="16" inputmode="numeric"/>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ADU Types -->
-      <div class="card-section">
-        <div class="section-eyebrow">04 — ADU Types</div>
-        <div class="chip-grid" id="f-types">
-          <label class="chip"><input type="checkbox" value="Detached ADU"/><span>Detached ADU</span></label>
-          <label class="chip"><input type="checkbox" value="Attached ADU"/><span>Attached ADU</span></label>
-          <label class="chip"><input type="checkbox" value="Garage Conversion"/><span>Garage Conversion</span></label>
-          <label class="chip"><input type="checkbox" value="Junior ADU (JADU)"/><span>JADU</span></label>
-          <label class="chip"><input type="checkbox" value="Basement Conversion"/><span>Basement</span></label>
-          <label class="chip"><input type="checkbox" value="Second Story ADU"/><span>Second Story</span></label>
-        </div>
-
-        <div class="section-eyebrow" style="margin-top:20px">Constraints</div>
-        <div class="chip-grid" id="f-constraints">
-          <label class="chip"><input type="checkbox" value="HOA Restrictions"/><span>HOA</span></label>
-          <label class="chip"><input type="checkbox" value="Historic District"/><span>Historic</span></label>
-          <label class="chip"><input type="checkbox" value="Flood Zone"/><span>Flood Zone</span></label>
-          <label class="chip"><input type="checkbox" value="Steep Slope"/><span>Steep Slope</span></label>
-          <label class="chip"><input type="checkbox" value="Septic System"/><span>Septic</span></label>
-          <label class="chip"><input type="checkbox" value="Corner Lot"/><span>Corner Lot</span></label>
-          <label class="chip"><input type="checkbox" value="Alley Access"/><span>Alley</span></label>
-          <label class="chip"><input type="checkbox" value="Well Water"/><span>Well Water</span></label>
-        </div>
-      </div>
-
-      <!-- Goals -->
-      <div class="card-section">
-        <div class="section-eyebrow">05 — Goals</div>
-        <div class="field-group">
-          <div class="field-row">
-            <div class="field">
-              <label>Primary Goal</label>
-              <select id="f-goal-type">
-                <option value="rental income">Rental Income</option>
-                <option value="house family member">House Family</option>
-                <option value="increase property value">Property Value</option>
-                <option value="multi-generational living">Multi-Gen</option>
-                <option value="home office / studio">Office / Studio</option>
-                <option value="maximize lot potential">Maximize Lot</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Budget</label>
-              <select id="f-budget">
-                <option value="under $100k">Under $100k</option>
-                <option value="$100k–$150k">$100k–$150k</option>
-                <option value="$150k–$200k" selected>$150k–$200k</option>
-                <option value="$200k–$300k">$200k–$300k</option>
-                <option value="$300k+">$300k+</option>
-                <option value="flexible">Flexible</option>
-              </select>
-            </div>
-          </div>
-          <div class="field">
-            <label>Extra Notes</label>
-            <textarea id="f-goals" rows="3" placeholder="Anything the client mentioned…"></textarea>
-          </div>
-        </div>
-      </div>
-
-      <!-- Actions -->
-      <div class="form-actions">
-        <div id="form-error" class="form-error"></div>
-        <button id="analyze-btn" onclick="runAnalysis()">
-          <span id="btn-label">Run Analysis</span>
-          <span id="btn-loader" style="display:none">
-            <svg class="spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg>
-            Analyzing…
-          </span>
-        </button>
-        <button class="btn-ghost" onclick="clearForm()">Clear Form</button>
-      </div>
-
-    </div><!-- /view-scroll -->
-  </div><!-- /view-analyze -->
-
-  <!-- ── REPORT SHEET (slides up over form) ───────────────────────────────── -->
-  <div id="report-sheet" class="sheet">
-    <div class="sheet-handle-bar">
-      <div class="sheet-handle"></div>
+<header class="hdr">
+  <div class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
     </div>
-    <div class="sheet-header">
-      <button class="sheet-close" onclick="closeReport()">✕ Close</button>
-      <button class="sheet-print" onclick="window.print()">⬇ PDF</button>
-    </div>
-    <div class="sheet-scroll" id="report-content"></div>
+    <span class="logo-text">ADU <em>Pro</em></span>
   </div>
-  <div id="sheet-backdrop" onclick="closeReport()"></div>
+  <nav class="topnav">
+    <button class="tnb active" data-screen="analyze" onclick="goTo('analyze')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+      Analyze
+    </button>
+    <button class="tnb" data-screen="history" onclick="goTo('history')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      History
+    </button>
+    <button class="tnb" data-screen="settings" onclick="goTo('settings')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      Settings
+    </button>
+  </nav>
+</header>
 
-  <!-- ── HISTORY ───────────────────────────────────────────────────────────── -->
-  <div class="view" id="view-history">
-    <div class="view-scroll">
-      <div class="page-header">
-        <h1>Consultation <em>History</em></h1>
-      </div>
-      <div id="history-list"></div>
+<!-- ANALYZE SCREEN -->
+
+<div class="scr active" id="scr-analyze">
+
+  <div id="notice-setup" class="notice warn hidden">
+    <svg class="ni" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+    <div>
+      <strong>API key needed</strong>
+      Add your Anthropic key before running.
+      <a class="nlink" onclick="goTo('settings')">Go to Settings →</a>
     </div>
   </div>
 
-  <!-- ── SETTINGS ─────────────────────────────────────────────────────────── -->
-  <div class="view" id="view-settings">
-    <div class="view-scroll">
-      <div class="page-header">
-        <h1>Settings</h1>
-      </div>
+  <div id="notice-error" class="notice err hidden">
+    <svg class="ni" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+    <div id="errtext">Error.</div>
+  </div>
 
-      <div class="card-section">
-        <div class="section-eyebrow">Anthropic API Key</div>
-        <p class="section-hint">Stored only on this device. Get yours at console.anthropic.com</p>
-        <div class="field" style="margin-top:14px">
-          <label>API Key</label>
-          <input id="s-apikey" type="password" placeholder="sk-ant-api03-…" autocomplete="off" autocorrect="off"/>
-        </div>
-        <button class="btn-primary-sm" onclick="saveApiKey()" style="margin-top:12px">Save Key</button>
-        <div id="key-saved" class="saved-msg" style="display:none">✓ Saved</div>
-      </div>
+  <div class="scroll">
 
-      <div class="card-section">
-        <div class="section-eyebrow">Company</div>
-        <div class="field-group">
-          <div class="field">
-            <label>Company Name</label>
-            <input id="s-company" type="text" placeholder="My ADU Company"/>
-          </div>
-          <div class="field">
-            <label>Your Name</label>
-            <input id="s-consultant" type="text" placeholder="Ron"/>
-          </div>
-          <div class="field">
-            <label>Default State</label>
-            <select id="s-state">
-              <option>CA</option><option>WA</option><option>OR</option>
-              <option>AZ</option><option>TX</option><option>FL</option>
-              <option>CO</option><option>NY</option>
-            </select>
-          </div>
-        </div>
-        <button class="btn-primary-sm" onclick="saveSettings()" style="margin-top:12px">Save Settings</button>
-        <div id="settings-saved" class="saved-msg" style="display:none">✓ Saved</div>
+```
+<div class="sec">
+  <div class="sec-lbl">
+    <div class="dot"></div>
+    <span class="sec-title">Property</span>
+    <span class="sec-sub">Required</span>
+  </div>
+  <div class="addr-card" id="addrcard">
+    <div class="addr-lbl">Street Address</div>
+    <input type="text" id="inp-addr" placeholder="e.g. 1234 Elm Street" autocomplete="street-address">
+    <a id="zbadge" class="zbadge" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="10" height="10"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      ZIMAS
+    </a>
+    <div class="addr-row">
+      <div class="field" style="margin:0">
+        <input type="text" id="inp-city" placeholder="City">
       </div>
-
-      <div class="card-section">
-        <div class="section-eyebrow">How to Install on iPhone</div>
-        <div class="install-steps">
-          <div class="install-step"><span class="step-n">1</span><span>Tap the <strong>Share</strong> button at the bottom of Safari (the square with arrow)</span></div>
-          <div class="install-step"><span class="step-n">2</span><span>Scroll down and tap <strong>"Add to Home Screen"</strong></span></div>
-          <div class="install-step"><span class="step-n">3</span><span>Tap <strong>Add</strong> — the ADU icon appears on your home screen</span></div>
-          <div class="install-step"><span class="step-n">4</span><span>Open it from your home screen — it runs fullscreen like a native app</span></div>
-        </div>
+      <div class="field" style="margin:0">
+        <select id="inp-state">
+          <option value="">State</option>
+          <option value="CA" selected>CA</option>
+          <option value="WA">WA</option>
+          <option value="OR">OR</option>
+          <option value="AZ">AZ</option>
+          <option value="TX">TX</option>
+          <option value="FL">FL</option>
+          <option value="CO">CO</option>
+          <option value="NY">NY</option>
+          <option value="NV">NV</option>
+          <option value="ID">ID</option>
+          <option value="Other">Other</option>
+        </select>
       </div>
-
-      <div class="card-section">
-        <div class="section-eyebrow">Data</div>
-        <p class="section-hint">Everything is stored on this device. Nothing leaves except API calls to Anthropic.</p>
-        <button class="btn-danger-sm" onclick="clearHistory()" style="margin-top:12px">Clear All History</button>
-      </div>
-
-      <div style="height:40px"></div>
     </div>
   </div>
+</div>
+
+<div class="hr"></div>
+
+<div class="sec">
+  <div class="sec-lbl">
+    <div class="dot"></div>
+    <span class="sec-title">Goals</span>
+  </div>
+  <div class="field" style="margin-bottom:14px">
+    <label>Primary Objective</label>
+    <div class="chips" id="chips-goal">
+      <div class="chip" data-val="Rental Income">🏘 Rental Income</div>
+      <div class="chip" data-val="House a Family Member">👨‍👩‍👧 House Family</div>
+      <div class="chip" data-val="Increase Property Value">📈 Property Value</div>
+      <div class="chip" data-val="Multi-Generational Living">🤝 Multi-Gen</div>
+      <div class="chip" data-val="Home Office / Studio">💼 Office / Studio</div>
+      <div class="chip" data-val="Maximize Lot Utilization">🧩 Maximize Lot</div>
+    </div>
+  </div>
+  <div class="field">
+    <label>Budget Range</label>
+    <div class="chips" id="chips-budget">
+      <div class="chip" data-val="Under $100k">Under $100k</div>
+      <div class="chip" data-val="$100k-$150k">$100k–$150k</div>
+      <div class="chip" data-val="$150k-$200k">$150k–$200k</div>
+      <div class="chip" data-val="$200k-$300k">$200k–$300k</div>
+      <div class="chip" data-val="$300k+">$300k+</div>
+      <div class="chip" data-val="Flexible">Flexible</div>
+    </div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<div class="sec">
+  <div class="sec-lbl">
+    <div class="dot"></div>
+    <span class="sec-title">ADU Interest</span>
+    <span class="sec-sub">Select all that apply</span>
+  </div>
+  <div class="chips" id="chips-adu">
+    <div class="chip" data-val="Detached ADU">Detached ADU</div>
+    <div class="chip" data-val="Attached ADU">Attached ADU</div>
+    <div class="chip" data-val="Garage Conversion">Garage Conversion</div>
+    <div class="chip" data-val="JADU">JADU</div>
+    <div class="chip" data-val="Basement ADU">Basement</div>
+    <div class="chip" data-val="Second Story ADU">Second Story</div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<div class="sec">
+  <div class="sec-lbl">
+    <div class="dot"></div>
+    <span class="sec-title">Known Constraints</span>
+    <span class="sec-sub">If any</span>
+  </div>
+  <div class="chips" id="chips-con">
+    <div class="chip grn" data-val="HOA">HOA</div>
+    <div class="chip grn" data-val="Historic District / HPOZ">Historic</div>
+    <div class="chip grn" data-val="Flood Zone">Flood Zone</div>
+    <div class="chip grn" data-val="Steep Slope / Hillside">Steep Slope</div>
+    <div class="chip grn" data-val="Septic System">Septic</div>
+    <div class="chip grn" data-val="Corner Lot">Corner Lot</div>
+    <div class="chip grn" data-val="Alley Access">Alley</div>
+    <div class="chip grn" data-val="Well Water">Well Water</div>
+    <div class="chip grn" data-val="Fire Hazard Zone">Fire Zone</div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<div class="sec">
+  <div class="sec-lbl">
+    <div class="dot"></div>
+    <span class="sec-title">Client &amp; Notes</span>
+    <span class="sec-sub">Optional</span>
+  </div>
+  <div class="frow">
+    <div class="field">
+      <label>Client Name</label>
+      <input type="text" id="inp-client" placeholder="Jane Smith">
+    </div>
+    <div class="field">
+      <label>Phone</label>
+      <input type="tel" id="inp-phone" placeholder="(555) 000-0000">
+    </div>
+  </div>
+  <div class="field">
+    <label>Additional Notes</label>
+    <textarea id="inp-notes" placeholder="Special context, questions, existing structures..." rows="3"></textarea>
+  </div>
+</div>
+```
+
+  </div><!-- /scroll -->
+
+  <div class="abar">
+    <button class="btn-run" id="runBtn" onclick="runAnalysis()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="17" height="17"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      Run Analysis
+    </button>
+    <button class="btn-clr" onclick="clearForm()">Clear</button>
+  </div>
+
+</div><!-- /analyze -->
+
+<!-- HISTORY SCREEN -->
+
+<div class="scr" id="scr-history">
+  <div class="stop">
+    <h2>Analysis <em>History</em></h2>
+    <p>Tap any report to view it again</p>
+  </div>
+  <div class="lscroll" id="histlist"></div>
+</div>
+
+<!-- SETTINGS SCREEN -->
+
+<div class="scr" id="scr-settings">
+  <div class="stop">
+    <h2><em>Settings</em></h2>
+    <p>API key and preferences</p>
+  </div>
+  <div class="sscroll">
+
+```
+<div class="sgroup">
+  <span class="sgroup-lbl">🔑 Anthropic API Key</span>
+  <div class="scard">
+    <div class="scard-title">Your API Key</div>
+    <div class="scard-desc">Stored only on this device. Never sent anywhere except directly to Anthropic. Get yours at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>.</div>
+    <div class="kwrap">
+      <div class="field" style="margin:0">
+        <input type="password" id="inp-apikey" placeholder="sk-ant-api03-...">
+      </div>
+      <button class="ktoggle" id="keytoggle" title="Show/hide key">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+    </div>
+    <button class="bsave" onclick="saveApiKey()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Save Key
+    </button>
+    <div class="savedmsg" id="msg-key">
+      <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      API key saved
+    </div>
+  </div>
+</div>
+
+<div class="sgroup">
+  <span class="sgroup-lbl">🏢 Company Info</span>
+  <div class="scard">
+    <div class="frow">
+      <div class="field">
+        <label>Company Name</label>
+        <input type="text" id="inp-company" placeholder="Your Company">
+      </div>
+      <div class="field">
+        <label>Your Name</label>
+        <input type="text" id="inp-consultant" placeholder="Your Name">
+      </div>
+    </div>
+    <div class="field">
+      <label>Default State</label>
+      <select id="inp-defstate">
+        <option value="">Select</option>
+        <option value="CA">CA</option>
+        <option value="WA">WA</option>
+        <option value="OR">OR</option>
+        <option value="AZ">AZ</option>
+        <option value="TX">TX</option>
+        <option value="FL">FL</option>
+        <option value="CO">CO</option>
+        <option value="NY">NY</option>
+        <option value="NV">NV</option>
+        <option value="ID">ID</option>
+      </select>
+    </div>
+    <button class="bsave" onclick="saveSettings()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Save Settings
+    </button>
+    <div class="savedmsg" id="msg-settings">
+      <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      Settings saved
+    </div>
+  </div>
+</div>
+
+<div class="sgroup">
+  <span class="sgroup-lbl">📱 Add to iPhone Home Screen</span>
+  <div class="scard">
+    <ul class="isteps">
+      <li>Open this page in <strong>Safari</strong> (not Chrome)</li>
+      <li>Tap the <strong>Share</strong> button — box with arrow at bottom</li>
+      <li>Scroll and tap <strong>"Add to Home Screen"</strong></li>
+      <li>Tap <strong>Add</strong> — ADU Pro appears on your home screen</li>
+      <li>Launch from home screen — runs <strong>fullscreen like a native app</strong></li>
+    </ul>
+  </div>
+</div>
+
+<div class="sgroup">
+  <span class="sgroup-lbl">⚠️ Data</span>
+  <div class="scard">
+    <div class="scard-desc" style="margin-bottom:12px">All data stays on this device. Nothing leaves except API calls to Anthropic.</div>
+    <button class="bdanger" onclick="clearAllHistory()">Clear All History</button>
+  </div>
+</div>
+```
+
+  </div>
+</div><!-- /settings -->
 
 </div><!-- /app -->
 
-<script src="js/app.js"></script>
+<!-- RESULT DRAWER -->
+
+<div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
+  <div class="drawer">
+    <div class="dpill"></div>
+    <div class="dhead">
+      <div>
+        <div class="dtitle" id="drawer-title">Feasibility Report</div>
+        <div class="daddr" id="drawer-addr"></div>
+      </div>
+      <div class="dbtns">
+        <button class="ib" onclick="window.print()" title="Print / Save PDF">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        </button>
+        <button class="ib" id="btn-close-drawer" title="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="dbody report" id="drawer-body"></div>
+  </div>
+</div>
+
 <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js');
+// ─────────────────────────────────────────
+// STORAGE HELPERS
+// ─────────────────────────────────────────
+function store(key, value) {
+  localStorage.setItem(key, value);
+}
+function retrieve(key) {
+  return localStorage.getItem(key);
+}
+function escHtml(str) {
+  if (!str) return '';
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// ─────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function () {
+  initChips();
+  initCloseButton();
+  initAddressInput();
+  initKeyToggle();
+  loadSavedSettings();
+  checkApiKeyBanner();
+  renderHistory();
+});
+
+function initChips() {
+  // Single-select groups
+  var singleGroups = ['chips-goal', 'chips-budget'];
+  singleGroups.forEach(function (groupId) {
+    var chips = document.querySelectorAll('#' + groupId + ' .chip');
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        chips.forEach(function (c) { c.classList.remove('sel'); });
+        chip.classList.toggle('sel');
+      });
+    });
+  });
+
+  // Multi-select groups
+  var multiGroups = ['chips-adu', 'chips-con'];
+  multiGroups.forEach(function (groupId) {
+    document.querySelectorAll('#' + groupId + ' .chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        chip.classList.toggle('sel');
+      });
+    });
+  });
+}
+
+function initCloseButton() {
+  var btn = document.getElementById('btn-close-drawer');
+  if (btn) {
+    btn.addEventListener('click', function () {
+      closeDrawer();
+    });
   }
+}
+
+function initAddressInput() {
+  var addrInput = document.getElementById('inp-addr');
+  var cityInput = document.getElementById('inp-city');
+  if (addrInput) addrInput.addEventListener('input', updateZimasBadge);
+  if (cityInput) cityInput.addEventListener('input', updateZimasBadge);
+}
+
+function initKeyToggle() {
+  var btn = document.getElementById('keytoggle');
+  if (btn) {
+    btn.addEventListener('click', function () {
+      var inp = document.getElementById('inp-apikey');
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+    });
+  }
+}
+
+function updateZimasBadge() {
+  var addr = document.getElementById('inp-addr').value.trim();
+  var city = document.getElementById('inp-city').value.trim();
+  var badge = document.getElementById('zbadge');
+  if (addr) {
+    var query = addr + (city ? ' ' + city : '');
+    badge.href = 'https://zimas.lacity.org/?search=' + encodeURIComponent(query);
+    badge.classList.add('show');
+  } else {
+    badge.classList.remove('show');
+  }
+}
+
+// ─────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────
+function goTo(screenName) {
+  document.querySelectorAll('.scr').forEach(function (s) {
+    s.classList.remove('active');
+  });
+  document.querySelectorAll('.tnb').forEach(function (b) {
+    b.classList.remove('active');
+  });
+  var screen = document.getElementById('scr-' + screenName);
+  var btn = document.querySelector('[data-screen="' + screenName + '"]');
+  if (screen) screen.classList.add('active');
+  if (btn) btn.classList.add('active');
+  if (screenName === 'history') renderHistory();
+}
+
+// ─────────────────────────────────────────
+// FORM
+// ─────────────────────────────────────────
+function getFormData() {
+  var adus = [];
+  document.querySelectorAll('#chips-adu .chip.sel').forEach(function (c) {
+    adus.push(c.getAttribute('data-val'));
+  });
+  var cons = [];
+  document.querySelectorAll('#chips-con .chip.sel').forEach(function (c) {
+    cons.push(c.getAttribute('data-val'));
+  });
+  var goalEl = document.querySelector('#chips-goal .chip.sel');
+  var budgetEl = document.querySelector('#chips-budget .chip.sel');
+
+  return {
+    addr: document.getElementById('inp-addr').value.trim(),
+    city: document.getElementById('inp-city').value.trim(),
+    state: document.getElementById('inp-state').value,
+    goal: goalEl ? goalEl.getAttribute('data-val') : '',
+    budget: budgetEl ? budgetEl.getAttribute('data-val') : '',
+    adus: adus,
+    cons: cons,
+    client: document.getElementById('inp-client').value.trim(),
+    phone: document.getElementById('inp-phone').value.trim(),
+    notes: document.getElementById('inp-notes').value.trim()
+  };
+}
+
+function clearForm() {
+  if (!confirm('Clear all fields?')) return;
+  document.getElementById('inp-addr').value = '';
+  document.getElementById('inp-city').value = '';
+  document.getElementById('inp-client').value = '';
+  document.getElementById('inp-phone').value = '';
+  document.getElementById('inp-notes').value = '';
+  var defState = retrieve('adu_defstate') || 'CA';
+  document.getElementById('inp-state').value = defState;
+  document.querySelectorAll('.chip.sel').forEach(function (c) {
+    c.classList.remove('sel');
+  });
+  document.getElementById('zbadge').classList.remove('show');
+  hideError();
+}
+
+// ─────────────────────────────────────────
+// RUN ANALYSIS
+// ─────────────────────────────────────────
+function runAnalysis() {
+  var apiKey = retrieve('adu_apikey');
+  if (!apiKey || apiKey.indexOf('sk-') !== 0) {
+    showError('No API key found. Please go to Settings and add your Anthropic API key first.');
+    return;
+  }
+  var f = getFormData();
+  if (!f.addr || !f.city) {
+    showError('Please enter a street address and city to continue.');
+    return;
+  }
+  hideError();
+  setLoading(true);
+
+  var systemPrompt = buildSystemPrompt();
+  var userPrompt = buildUserPrompt(f);
+
+  fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-5',
+      max_tokens: 2400,
+      system: systemPrompt,
+      messages: [{ role: 'user', content: userPrompt }]
+    })
+  })
+  .then(function (res) {
+    if (!res.ok) {
+      return res.json().catch(function () { return {}; }).then(function (errData) {
+        var msg = (errData && errData.error && errData.error.message) ? errData.error.message : 'API error ' + res.status;
+        if (res.status === 401) throw new Error('Invalid API key. Please check your key in Settings.');
+        if (res.status === 429) throw new Error('Rate limit reached. Please wait a moment and try again.');
+        throw new Error(msg);
+      });
+    }
+    return res.json();
+  })
+  .then(function (data) {
+    var text = '';
+    if (data.content && data.content.length > 0) {
+      for (var i = 0; i < data.content.length; i++) {
+        if (data.content[i].type === 'text') {
+          text = data.content[i].text;
+          break;
+        }
+      }
+    }
+    if (!text) throw new Error('Empty response from API. Please try again.');
+    var f2 = getFormData();
+    var record = {
+      id: Date.now(),
+      date: new Date().toISOString(),
+      client: f2.client || 'Unknown',
+      address: f2.addr + ', ' + f2.city,
+      state: f2.state,
+      adus: f2.adus,
+      result: text
+    };
+    saveRecord(record);
+    openDrawer(record);
+  })
+  .catch(function (err) {
+    var msg = err.message || 'Unexpected error.';
+    if (msg.toLowerCase().indexOf('fetch') >= 0 || msg.toLowerCase().indexOf('failed') >= 0) {
+      msg = 'Network error. Please check your connection and try again.';
+    }
+    showError(msg);
+  })
+  .finally(function () {
+    setLoading(false);
+  });
+}
+
+function buildSystemPrompt() {
+  var company = retrieve('adu_company') || 'our ADU consulting firm';
+  var consultant = retrieve('adu_consultant') || 'the consultant';
+  return 'You are a senior ADU feasibility consultant at ' + company + ', working with ' + consultant + '. '
+    + 'You have deep expertise in California ADU law (AB 68, AB 881, SB 9, SB 13, AB 2221, AB 976), '
+    + 'city-specific ADU ordinances across CA, state law overrides (800 sqft by-right, 4ft setbacks, etc.), '
+    + 'current construction costs by region, local permit fees and timelines, and rental market comps by neighborhood. '
+    + 'When given an address, use your knowledge of that area to infer likely lot size, zoning, and neighborhood characteristics. '
+    + 'Produce a professional, specific feasibility report in markdown. Flag items requiring ZIMAS or city planning verification. '
+    + 'Be specific with numbers and ranges. Write for a professional audience.';
+}
+
+function buildUserPrompt(f) {
+  var lines = [];
+  lines.push('## ADU Feasibility Request');
+  lines.push('**Address:** ' + f.addr + ', ' + f.city + (f.state ? ', ' + f.state : ''));
+  if (f.goal) lines.push('**Goal:** ' + f.goal);
+  if (f.budget) lines.push('**Budget:** ' + f.budget);
+  if (f.adus.length > 0) lines.push('**ADU Types of Interest:** ' + f.adus.join(', '));
+  if (f.cons.length > 0) lines.push('**Known Constraints:** ' + f.cons.join(', '));
+  if (f.client) lines.push('**Client:** ' + f.client + (f.phone ? ' - ' + f.phone : ''));
+  if (f.notes) lines.push('**Notes:** ' + f.notes);
+  lines.push('');
+  lines.push('Please provide a complete ADU feasibility report with these sections:');
+  lines.push('');
+  lines.push('## 1. Executive Summary');
+  lines.push('2-3 sentence verdict and top recommendation.');
+  lines.push('');
+  lines.push('## 2. What\'s Likely Allowed');
+  lines.push('Probable zoning for this address, likely ADU types permitted, setback rules, height limits, lot coverage max, applicable state law protections. Note what must be verified via ZIMAS or city planning.');
+  lines.push('');
+  lines.push('## 3. Recommended Approach');
+  lines.push('Best ADU type given goals, budget, and constraints. Specific rationale.');
+  lines.push('');
+  lines.push('## 4. Cost Estimate');
+  lines.push('Construction range (low/mid/high) for recommended type. Current dollar per sqft for this region. Typical soft costs for this jurisdiction.');
+  lines.push('');
+  lines.push('## 5. Rental Income Potential');
+  lines.push('Estimated monthly rent range for this neighborhood, ROI estimate, payback period.');
+  lines.push('');
+  lines.push('## 6. Permitting and Timeline');
+  lines.push('Typical process for this city, expected timeline in months, any expedite options.');
+  lines.push('');
+  lines.push('## 7. Key Risks');
+  lines.push('Top 3 risks or red flags for this property or jurisdiction.');
+  lines.push('');
+  lines.push('## 8. Next Steps');
+  lines.push('Specific action items in order for consultant and client.');
+  return lines.join('\n');
+}
+
+// ─────────────────────────────────────────
+// DRAWER
+// ─────────────────────────────────────────
+function openDrawer(record) {
+  var titleEl = document.getElementById('drawer-title');
+  var addrEl = document.getElementById('drawer-addr');
+  var bodyEl = document.getElementById('drawer-body');
+
+  titleEl.textContent = (record.client && record.client !== 'Unknown') ? record.client + ' - Report' : 'Feasibility Report';
+  addrEl.textContent = record.address || '';
+  bodyEl.innerHTML = markdownToHtml(record.result) + buildZimasLink(record);
+
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDrawer() {
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(event) {
+  if (event.target === document.getElementById('overlay')) {
+    closeDrawer();
+  }
+}
+
+function buildZimasLink(record) {
+  var street = (record.address || '').split(',')[0];
+  var url = 'https://zimas.lacity.org/?search=' + encodeURIComponent(street);
+  return '<a class="zbtn" href="' + url + '" target="_blank" rel="noopener">'
+    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>'
+    + 'Verify on ZIMAS (LA City)</a>';
+}
+
+// ─────────────────────────────────────────
+// MARKDOWN RENDERER
+// ─────────────────────────────────────────
+function markdownToHtml(text) {
+  if (!text) return '';
+
+  // Escape HTML first
+  text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  // Headings
+  text = text.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+  text = text.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+  text = text.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+
+  // Bold and italic
+  text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  text = text.replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+  // Horizontal rules
+  text = text.replace(/^---+$/gm, '<hr>');
+
+  // Split into blocks and process each
+  var blocks = text.split(/\n\n+/);
+  var result = [];
+
+  for (var i = 0; i < blocks.length; i++) {
+    var block = blocks[i].trim();
+    if (!block) continue;
+
+    // Already an HTML tag
+    if (/^<(h[123]|hr)/.test(block)) {
+      result.push(block);
+      continue;
+    }
+
+    // Check for unordered list
+    var lines = block.split('\n');
+    var isUL = true;
+    for (var j = 0; j < lines.length; j++) {
+      if (lines[j].trim() && !/^[\s]*[-*] /.test(lines[j])) {
+        isUL = false;
+        break;
+      }
+    }
+    if (isUL && lines.some(function(l) { return l.trim(); })) {
+      var items = '';
+      lines.forEach(function (line) {
+        var trimmed = line.trim();
+        if (!trimmed) return;
+        var content = trimmed.replace(/^[-*] /, '');
+        items += '<li>' + content + '</li>';
+      });
+      result.push('<ul>' + items + '</ul>');
+      continue;
+    }
+
+    // Check for ordered list
+    var isOL = true;
+    for (var k = 0; k < lines.length; k++) {
+      if (lines[k].trim() && !/^\d+\. /.test(lines[k])) {
+        isOL = false;
+        break;
+      }
+    }
+    if (isOL && lines.some(function(l) { return l.trim(); })) {
+      var oitems = '';
+      lines.forEach(function (line) {
+        var trimmed = line.trim();
+        if (!trimmed) return;
+        var content = trimmed.replace(/^\d+\. /, '');
+        oitems += '<li>' + content + '</li>';
+      });
+      result.push('<ol>' + oitems + '</ol>');
+      continue;
+    }
+
+    // Default: paragraph
+    result.push('<p>' + block.replace(/\n/g, '<br>') + '</p>');
+  }
+
+  return result.join('\n');
+}
+
+// ─────────────────────────────────────────
+// UI HELPERS
+// ─────────────────────────────────────────
+function setLoading(on) {
+  var btn = document.getElementById('runBtn');
+  if (on) {
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spin"></div> Analyzing...';
+  } else {
+    btn.disabled = false;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="17" height="17"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Run Analysis';
+  }
+}
+
+function showError(msg) {
+  var box = document.getElementById('notice-error');
+  document.getElementById('errtext').textContent = msg;
+  box.classList.remove('hidden');
+  box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function hideError() {
+  document.getElementById('notice-error').classList.add('hidden');
+}
+
+function checkApiKeyBanner() {
+  var key = retrieve('adu_apikey');
+  var hasKey = !!(key && key.indexOf('sk-') === 0);
+  document.getElementById('notice-setup').classList.toggle('hidden', hasKey);
+}
+
+function showSaved(id) {
+  var el = document.getElementById(id);
+  el.classList.add('show');
+  setTimeout(function () { el.classList.remove('show'); }, 2500);
+}
+
+// ─────────────────────────────────────────
+// SETTINGS
+// ─────────────────────────────────────────
+function saveApiKey() {
+  var key = document.getElementById('inp-apikey').value.trim();
+  if (!key) { alert('Please enter your API key.'); return; }
+  store('adu_apikey', key);
+  showSaved('msg-key');
+  checkApiKeyBanner();
+}
+
+function saveSettings() {
+  store('adu_company', document.getElementById('inp-company').value.trim());
+  store('adu_consultant', document.getElementById('inp-consultant').value.trim());
+  store('adu_defstate', document.getElementById('inp-defstate').value);
+  showSaved('msg-settings');
+}
+
+function loadSavedSettings() {
+  var key = retrieve('adu_apikey');
+  if (key) document.getElementById('inp-apikey').value = key;
+
+  var company = retrieve('adu_company');
+  if (company) document.getElementById('inp-company').value = company;
+
+  var consultant = retrieve('adu_consultant');
+  if (consultant) document.getElementById('inp-consultant').value = consultant;
+
+  var defState = retrieve('adu_defstate') || 'CA';
+  document.getElementById('inp-defstate').value = defState;
+  document.getElementById('inp-state').value = defState;
+}
+
+// ─────────────────────────────────────────
+// HISTORY
+// ─────────────────────────────────────────
+function saveRecord(record) {
+  var history = getHistory();
+  history.unshift(record);
+  store('adu_history', JSON.stringify(history.slice(0, 60)));
+}
+
+function getHistory() {
+  try {
+    return JSON.parse(retrieve('adu_history') || '[]');
+  } catch (e) {
+    return [];
+  }
+}
+
+function clearAllHistory() {
+  if (!confirm('Delete all history? This cannot be undone.')) return;
+  localStorage.removeItem('adu_history');
+  renderHistory();
+}
+
+function renderHistory() {
+  var listEl = document.getElementById('histlist');
+  var history = getHistory();
+
+  if (history.length === 0) {
+    listEl.innerHTML = '<div class="empty">'
+      + '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>'
+      + '<h3>No analyses yet</h3>'
+      + '<p>Run your first analysis and it will appear here.</p>'
+      + '</div>';
+    return;
+  }
+
+  var html = '';
+  history.forEach(function (record) {
+    var dateStr = new Date(record.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    var tags = '';
+    (record.adus || []).forEach(function (t) {
+      tags += '<span class="htag">' + escHtml(t) + '</span>';
+    });
+    html += '<div class="hitem" onclick="reopenRecord(' + record.id + ')">'
+      + '<div class="hitem-top">'
+      + '<span class="hitem-name">' + escHtml(record.client) + '</span>'
+      + '<span class="hitem-date">' + dateStr + '</span>'
+      + '</div>'
+      + '<div class="hitem-addr">' + escHtml(record.address) + '</div>'
+      + (tags ? '<div class="hitem-tags">' + tags + '</div>' : '')
+      + '</div>';
+  });
+  listEl.innerHTML = html;
+}
+
+function reopenRecord(id) {
+  var history = getHistory();
+  var record = null;
+  for (var i = 0; i < history.length; i++) {
+    if (history[i].id === id) { record = history[i]; break; }
+  }
+  if (record) openDrawer(record);
+}
 </script>
+
 </body>
 </html>
