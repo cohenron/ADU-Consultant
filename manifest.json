@@ -1,15 +1,33 @@
 {
-  "name": "ADU Consultant",
-  "short_name": "ADU",
-  "description": "AI-powered ADU feasibility tool for consultants",
-  "start_url": "/index.html",
+  "name": "ADU Pro — Feasibility Consultant",
+  "short_name": "ADU Pro",
+  "description": "Professional ADU feasibility analysis tool powered by AI",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0d0f0d",
-  "theme_color": "#0d0f0d",
+  "background_color": "#0f1117",
+  "theme_color": "#0f1117",
+  "lang": "en-US",
+  "categories": ["business", "utilities"],
   "icons": [
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
   ]
 }
