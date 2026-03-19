@@ -615,7 +615,7 @@ function runAnalysis() {
   hideError();
   setLoading(true);
   var controller = new AbortController();
-  var tid = setTimeout(function() { controller.abort(); }, 60000);
+  var tid = setTimeout(function() { controller.abort(); }, 90000);
   fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     signal: controller.signal,
@@ -627,7 +627,7 @@ function runAnalysis() {
     },
     body: JSON.stringify({
       model: 'claude-sonnet-4-5',
-      max_tokens: 2800,
+      max_tokens: 2000,
       system: buildSystem(),
       messages: [{ role: 'user', content: buildPrompt(f) }]
     })
