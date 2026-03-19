@@ -20,87 +20,29 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ── RESET & ROOT ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { height: 100%; background-color: #0f1117 !important; color-scheme: dark; }
+body { height: 100%; background-color: #0f1117 !important; color: #e8e6e0 !important; font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif; overflow: hidden; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; }
+.app { display: flex; flex-direction: column; height: 100vh; height: 100dvh; max-width: 430px; margin: 0 auto; background-color: #0f1117; position: relative; }
 
-html {
-height: 100%;
-background-color: #0f1117 !important;
-color-scheme: dark;
-}
-
-body {
-height: 100%;
-background-color: #0f1117 !important;
-color: #e8e6e0 !important;
-font-family: ‘Outfit’, -apple-system, BlinkMacSystemFont, sans-serif;
-overflow: hidden;
--webkit-font-smoothing: antialiased;
--webkit-text-size-adjust: 100%;
-}
-
-/* ── APP SHELL ── */
-.app {
-display: flex;
-flex-direction: column;
-height: 100vh;
-height: 100dvh;
-max-width: 430px;
-margin: 0 auto;
-background-color: #0f1117;
-position: relative;
-}
-
-/* ── HEADER ── */
-.hdr {
-flex-shrink: 0;
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding: 16px 20px 14px;
-border-bottom: 1px solid rgba(255,255,255,0.08);
-background-color: #0f1117;
-}
+/* HEADER */
+.hdr { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 16px 20px 14px; border-bottom: 1px solid rgba(255,255,255,0.08); background-color: #0f1117; }
 .logo { display: flex; align-items: center; gap: 10px; }
-.logo-mark {
-width: 34px; height: 34px;
-background-color: #d4a853;
-border-radius: 9px;
-display: flex; align-items: center; justify-content: center;
-flex-shrink: 0;
-}
+.logo-mark { width: 34px; height: 34px; background-color: #d4a853; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .logo-mark svg { width: 18px; height: 18px; fill: #0f1117; }
 .logo-text { font-family: ‘Cormorant Garamond’, Georgia, serif; font-size: 20px; font-weight: 600; color: #e8e6e0; }
 .logo-text em { color: #d4a853; font-style: italic; }
-
-/* ── NAV ── */
-.topnav {
-display: flex; gap: 2px;
-background-color: #161821;
-border: 1px solid rgba(255,255,255,0.08);
-border-radius: 10px; padding: 3px;
-}
-.tnb {
-background: none; border: none; cursor: pointer;
-padding: 6px 10px; border-radius: 7px;
-font-family: ‘Outfit’, -apple-system, sans-serif;
-font-size: 12px; font-weight: 500; color: #9b9899;
-white-space: nowrap; display: flex; align-items: center; gap: 4px;
--webkit-tap-highlight-color: transparent;
-}
+.topnav { display: flex; gap: 2px; background-color: #161821; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 3px; }
+.tnb { background: none; border: none; cursor: pointer; padding: 6px 10px; border-radius: 7px; font-family: ‘Outfit’, -apple-system, sans-serif; font-size: 12px; font-weight: 500; color: #9b9899; white-space: nowrap; display: flex; align-items: center; gap: 4px; -webkit-tap-highlight-color: transparent; }
 .tnb svg { width: 13px; height: 13px; flex-shrink: 0; }
 .tnb.active { background-color: #1e2030; color: #d4a853; }
 
-/* ── SCREENS ── */
+/* SCREENS */
 .scr { display: none; flex-direction: column; flex: 1; min-height: 0; }
 .scr.active { display: flex; }
 
-/* ── NOTICES ── */
-.notice {
-margin: 14px 20px 0; border-radius: 9px;
-padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px;
-font-size: 13px; line-height: 1.5; flex-shrink: 0;
-}
+/* NOTICES */
+.notice { margin: 14px 20px 0; border-radius: 9px; padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; line-height: 1.5; flex-shrink: 0; }
 .notice.warn { background-color: rgba(212,168,83,0.12); border: 1px solid rgba(212,168,83,0.3); color: #c8a245; }
 .notice.err  { background-color: rgba(224,92,92,0.12);  border: 1px solid rgba(224,92,92,0.3);  color: #e08080; }
 .notice.hidden { display: none !important; }
@@ -108,236 +50,98 @@ font-size: 13px; line-height: 1.5; flex-shrink: 0;
 .notice strong { color: #e8e6e0; display: block; margin-bottom: 2px; }
 .nlink { color: #d4a853; cursor: pointer; text-decoration: underline; font-size: 12px; }
 
-/* ── SCROLL ── */
+/* SCROLL */
 .scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 20px 20px 140px; }
 .scroll::-webkit-scrollbar { width: 0; }
 
-/* ── SECTIONS ── */
+/* SECTIONS */
 .sec { margin-bottom: 28px; }
 .sec-lbl { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
 .dot { width: 6px; height: 6px; background-color: #d4a853; border-radius: 50%; flex-shrink: 0; }
 .sec-title { font-family: ‘Cormorant Garamond’, Georgia, serif; font-size: 17px; font-weight: 600; color: #e8e6e0; }
 .sec-sub { font-size: 11px; color: #5a5860; margin-left: 4px; }
 
-/* ── ADDRESS CARD ── */
-.addr-card {
-background-color: #161821;
-border: 1px solid rgba(255,255,255,0.08);
-border-radius: 14px; padding: 16px; position: relative;
-}
-.addr-card:focus-within {
-border-color: rgba(212,168,83,0.4);
-box-shadow: 0 0 0 3px rgba(212,168,83,0.1);
-}
+/* ADDRESS CARD */
+.addr-card { background-color: #161821; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 16px; position: relative; }
+.addr-card:focus-within { border-color: rgba(212,168,83,0.4); box-shadow: 0 0 0 3px rgba(212,168,83,0.1); }
 .addr-lbl { font-size: 11px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: #5a5860; margin-bottom: 8px; }
-.addr-main-input {
-width: 100%; background: none; border: none; outline: none;
-font-family: ‘Outfit’, -apple-system, sans-serif;
-font-size: 16px; font-weight: 500; color: #e8e6e0; caret-color: #d4a853;
-}
+.addr-main-input { width: 100%; background: none; border: none; outline: none; font-family: ‘Outfit’, -apple-system, sans-serif; font-size: 16px; font-weight: 500; color: #e8e6e0; caret-color: #d4a853; }
 .addr-main-input::placeholder { color: #5a5860; font-weight: 400; }
-
-.addr-row {
-display: flex; gap: 10px;
-margin-top: 12px; padding-top: 12px;
-border-top: 1px solid rgba(255,255,255,0.08);
-}
-/* Explicit styling for city/state inputs inside addr-card */
-.addr-row .inp-city {
-flex: 1;
-background-color: rgba(255,255,255,0.05);
-border: 1px solid rgba(255,255,255,0.1);
-border-radius: 8px; padding: 9px 12px;
-font-family: ‘Outfit’, -apple-system, sans-serif;
-font-size: 14px; color: #e8e6e0; outline: none;
--webkit-appearance: none;
-}
+.addr-row { display: flex; gap: 10px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); }
+.addr-row .inp-city { flex: 1; background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 9px 12px; font-family: ‘Outfit’, -apple-system, sans-serif; font-size: 14px; color: #e8e6e0; outline: none; -webkit-appearance: none; }
 .addr-row .inp-city::placeholder { color: #5a5860; }
 .addr-row .inp-city:focus { border-color: rgba(212,168,83,0.4); }
-.addr-row .inp-state {
-width: 80px;
-background-color: rgba(255,255,255,0.05);
-border: 1px solid rgba(255,255,255,0.1);
-border-radius: 8px; padding: 9px 8px;
-font-family: ‘Outfit’, -apple-system, sans-serif;
-font-size: 14px; color: #e8e6e0; outline: none;
-cursor: pointer; -webkit-appearance: none; appearance: none;
-}
+.addr-row .inp-state { width: 80px; background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 9px 8px; font-family: ‘Outfit’, -apple-system, sans-serif; font-size: 14px; color: #e8e6e0; outline: none; cursor: pointer; -webkit-appearance: none; appearance: none; }
 .addr-row .inp-state:focus { border-color: rgba(212,168,83,0.4); }
 .addr-row .inp-state option { background-color: #1e2030; color: #e8e6e0; }
-
-.zbadge {
-position: absolute; top: 12px; right: 12px;
-font-size: 10px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase;
-color: #d4a853; background-color: rgba(212,168,83,0.15);
-border: 1px solid rgba(212,168,83,0.3); border-radius: 6px; padding: 3px 7px;
-text-decoration: none; display: none; align-items: center; gap: 4px;
-}
+.zbadge { position: absolute; top: 12px; right: 12px; font-size: 10px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; color: #d4a853; background-color: rgba(212,168,83,0.15); border: 1px solid rgba(212,168,83,0.3); border-radius: 6px; padding: 3px 7px; text-decoration: none; display: none; align-items: center; gap: 4px; }
 .zbadge.show { display: inline-flex; }
 
-/* ── FORM FIELDS ── */
+/* FIELDS */
 .field { margin-bottom: 10px; }
 .field label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; color: #5a5860; margin-bottom: 5px; }
-.field input,
-.field select,
-.field textarea {
-width: 100%;
-background-color: #161821;
-border: 1px solid rgba(255,255,255,0.08);
-border-radius: 9px; padding: 10px 12px;
-font-family: ‘Outfit’, -apple-system, sans-serif;
-font-size: 14px; color: #e8e6e0; outline: none;
--webkit-appearance: none; appearance: none;
-}
-.field input::placeholder,
-.field textarea::placeholder { color: #5a5860; }
-.field input:focus,
-.field select:focus,
-.field textarea:focus { border-color: rgba(212,168,83,0.4); box-shadow: 0 0 0 3px rgba(212,168,83,0.1); }
+.field input, .field select, .field textarea { width: 100%; background-color: #161821; border: 1px solid rgba(255,255,255,0.08); border-radius: 9px; padding: 10px 12px; font-family: ‘Outfit’, -apple-system, sans-serif; font-size: 14px; color: #e8e6e0; outline: none; -webkit-appearance: none; appearance: none; }
+.field input::placeholder, .field textarea::placeholder { color: #5a5860; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: rgba(212,168,83,0.4); box-shadow: 0 0 0 3px rgba(212,168,83,0.1); }
 .field select { cursor: pointer; }
 .field select option { background-color: #1e2030; color: #e8e6e0; }
 .field textarea { resize: vertical; min-height: 64px; line-height: 1.5; }
 .frow { display: flex; gap: 10px; }
 .frow .field { flex: 1; }
 
-/* ── CHIPS ── */
+/* CHIPS */
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip {
-padding: 8px 14px;
-border: 1px solid rgba(255,255,255,0.1);
-border-radius: 20px;
-font-family: ‘Outfit’, -apple-system, sans-serif;
-font-size: 13px; font-weight: 400;
-color: #9b9899; background-color: #161821;
-cursor: pointer; display: inline-block;
--webkit-tap-highlight-color: transparent;
-user-select: none; -webkit-user-select: none;
-transition: background-color 0.12s, border-color 0.12s, color 0.12s;
-}
+.chip { padding: 8px 14px; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; font-family: ‘Outfit’, -apple-system, sans-serif; font-size: 13px; font-weight: 400; color: #9b9899; background-color: #161821; cursor: pointer; display: inline-block; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; transition: background-color 0.12s, border-color 0.12s, color 0.12s; }
 .chip:active { opacity: 0.75; }
-.chip.sel {
-background-color: rgba(212,168,83,0.18) !important;
-border-color: rgba(212,168,83,0.55) !important;
-color: #d4a853 !important;
-}
-.chip.grn.sel {
-background-color: rgba(76,175,120,0.15) !important;
-border-color: rgba(76,175,120,0.45) !important;
-color: #4caf78 !important;
-}
+.chip.sel { background-color: rgba(212,168,83,0.18) !important; border-color: rgba(212,168,83,0.55) !important; color: #d4a853 !important; }
+.chip.grn.sel { background-color: rgba(76,175,120,0.15) !important; border-color: rgba(76,175,120,0.45) !important; color: #4caf78 !important; }
+.chip.red.sel { background-color: rgba(224,92,92,0.15) !important; border-color: rgba(224,92,92,0.4) !important; color: #e08080 !important; }
 
-/* ── DIVIDER ── */
+/* FIELD LABEL ROW */
+.field-lbl { font-size: 11px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; color: #5a5860; margin-bottom: 8px; display: block; }
+
+/* DIVIDER */
 .hr { height: 1px; background-color: rgba(255,255,255,0.07); margin: 4px 0 24px; }
 
-/* ── ACTION BAR ── */
-.abar {
-position: absolute; bottom: 0; left: 0; right: 0;
-padding: 14px 20px;
-padding-bottom: max(14px, env(safe-area-inset-bottom));
-background: linear-gradient(to top, #0f1117 65%, transparent);
-display: flex; gap: 10px; z-index: 10;
-}
-.btn-run {
-flex: 1;
-background-color: #d4a853; color: #0f1117;
-border: none; border-radius: 14px; padding: 15px 20px;
-font-family: ‘Outfit’, -apple-system, sans-serif;
-font-size: 15px; font-weight: 600; cursor: pointer;
-display: flex; align-items: center; justify-content: center; gap: 8px;
--webkit-tap-highlight-color: transparent;
-transition: background-color 0.15s, opacity 0.15s;
-}
+/* ACTION BAR */
+.abar { position: absolute; bottom: 0; left: 0; right: 0; padding: 14px 20px; padding-bottom: max(14px, env(safe-area-inset-bottom)); background: linear-gradient(to top, #0f1117 65%, transparent); display: flex; gap: 10px; z-index: 10; }
+.btn-run { flex: 1; background-color: #d4a853; color: #0f1117; border: none; border-radius: 14px; padding: 15px 20px; font-family: ‘Outfit’, -apple-system, sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; -webkit-tap-highlight-color: transparent; transition: background-color 0.15s, opacity 0.15s; }
 .btn-run:active { background-color: #c49840; }
 .btn-run:disabled { opacity: 0.45; cursor: not-allowed; }
 .btn-run svg { width: 17px; height: 17px; }
-.btn-clr {
-background-color: #161821; border: 1px solid rgba(255,255,255,0.08);
-color: #9b9899; border-radius: 14px; padding: 15px 16px;
-font-family: ‘Outfit’, -apple-system, sans-serif;
-font-size: 14px; font-weight: 500; cursor: pointer;
--webkit-tap-highlight-color: transparent;
-}
+.btn-clr { background-color: #161821; border: 1px solid rgba(255,255,255,0.08); color: #9b9899; border-radius: 14px; padding: 15px 16px; font-family: ‘Outfit’, -apple-system, sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .btn-clr:active { background-color: #1e2030; }
-
-.spin {
-width: 17px; height: 17px;
-border: 2px solid rgba(15,17,23,0.3);
-border-top-color: #0f1117;
-border-radius: 50%;
-animation: spin 0.65s linear infinite; flex-shrink: 0;
-}
+.spin { width: 17px; height: 17px; border: 2px solid rgba(15,17,23,0.3); border-top-color: #0f1117; border-radius: 50%; animation: spin 0.65s linear infinite; flex-shrink: 0; }
 @keyframes spin { 100% { transform: rotate(360deg); } }
 
-/* ── CUSTOM CONFIRM DIALOG ── */
-.confirm-overlay {
-display: none; position: fixed; inset: 0; z-index: 300;
-background-color: rgba(0,0,0,0.6);
-align-items: center; justify-content: center;
-padding: 24px;
-}
+/* CUSTOM CONFIRM */
+.confirm-overlay { display: none; position: fixed; inset: 0; z-index: 300; background-color: rgba(0,0,0,0.6); align-items: center; justify-content: center; padding: 24px; }
 .confirm-overlay.open { display: flex; }
-.confirm-box {
-background-color: #1e2030;
-border: 1px solid rgba(255,255,255,0.12);
-border-radius: 16px; padding: 24px; width: 100%; max-width: 320px;
-}
+.confirm-box { background-color: #1e2030; border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 24px; width: 100%; max-width: 320px; }
 .confirm-msg { font-size: 15px; color: #e8e6e0; margin-bottom: 20px; line-height: 1.5; }
 .confirm-btns { display: flex; gap: 10px; }
-.confirm-cancel {
-flex: 1; padding: 12px; background-color: #161821;
-border: 1px solid rgba(255,255,255,0.08); border-radius: 10px;
-font-family: ‘Outfit’, sans-serif; font-size: 14px; color: #9b9899; cursor: pointer;
--webkit-tap-highlight-color: transparent;
-}
-.confirm-ok {
-flex: 1; padding: 12px; background-color: #e05c5c;
-border: none; border-radius: 10px;
-font-family: ‘Outfit’, sans-serif; font-size: 14px; font-weight: 600; color: #fff; cursor: pointer;
--webkit-tap-highlight-color: transparent;
-}
+.confirm-cancel { flex: 1; padding: 12px; background-color: #161821; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; font-family: ‘Outfit’, sans-serif; font-size: 14px; color: #9b9899; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.confirm-ok { flex: 1; padding: 12px; background-color: #e05c5c; border: none; border-radius: 10px; font-family: ‘Outfit’, sans-serif; font-size: 14px; font-weight: 600; color: #fff; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 
-/* ── DRAWER OVERLAY ── */
-.overlay {
-display: none; position: fixed; inset: 0; z-index: 200;
-background-color: rgba(0,0,0,0.72);
--webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-}
+/* DRAWER */
+.overlay { display: none; position: fixed; inset: 0; z-index: 200; background-color: rgba(0,0,0,0.72); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 .overlay.open { display: flex; align-items: flex-end; justify-content: center; }
-.drawer {
-background-color: #161821;
-border: 1px solid rgba(255,255,255,0.08); border-bottom: none;
-border-radius: 20px 20px 0 0; width: 100%; max-width: 430px; max-height: 88vh;
-display: flex; flex-direction: column;
-animation: slideup 0.28s ease;
-}
+.drawer { background-color: #161821; border: 1px solid rgba(255,255,255,0.08); border-bottom: none; border-radius: 20px 20px 0 0; width: 100%; max-width: 430px; max-height: 88vh; display: flex; flex-direction: column; animation: slideup 0.28s ease; }
 @keyframes slideup { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 .dpill { width: 36px; height: 4px; background-color: rgba(255,255,255,0.15); border-radius: 2px; margin: 12px auto 0; flex-shrink: 0; }
-.dhead {
-padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.08);
-display: flex; align-items: flex-start; justify-content: space-between;
-flex-shrink: 0; gap: 12px;
-}
+.dhead { padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: flex-start; justify-content: space-between; flex-shrink: 0; gap: 12px; }
 .dtitle { font-family: ‘Cormorant Garamond’, Georgia, serif; font-size: 19px; font-weight: 600; color: #e8e6e0; line-height: 1.2; }
 .daddr { font-size: 12px; color: #5a5860; margin-top: 3px; }
 .dbtns { display: flex; gap: 7px; flex-shrink: 0; }
-.ib {
-width: 34px; height: 34px;
-border: 1px solid rgba(255,255,255,0.08); border-radius: 9px;
-background-color: #1e2030; cursor: pointer;
-display: flex; align-items: center; justify-content: center;
-color: #9b9899; -webkit-tap-highlight-color: transparent;
-}
+.ib { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,0.08); border-radius: 9px; background-color: #1e2030; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #9b9899; -webkit-tap-highlight-color: transparent; }
 .ib svg { width: 15px; height: 15px; }
 .ib:active { background-color: rgba(212,168,83,0.15); color: #d4a853; }
 .dbody { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 20px; }
 .dbody::-webkit-scrollbar { width: 0; }
 
-/* ── REPORT STYLES ── */
+/* REPORT */
 .report h1 { font-family: ‘Cormorant Garamond’, Georgia, serif; font-size: 22px; color: #e8e6e0; margin-bottom: 6px; }
-.report h2 {
-font-family: ‘Cormorant Garamond’, Georgia, serif; font-size: 17px; font-weight: 600; color: #d4a853;
-margin: 20px 0 8px; padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.08);
-}
+.report h2 { font-family: ‘Cormorant Garamond’, Georgia, serif; font-size: 17px; font-weight: 600; color: #d4a853; margin: 20px 0 8px; padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.08); }
 .report h2:first-child { margin-top: 0; }
 .report h3 { font-size: 14px; font-weight: 600; color: #e8e6e0; margin: 12px 0 5px; }
 .report p { font-size: 14px; line-height: 1.75; color: rgba(232,230,224,0.78); margin-bottom: 10px; }
@@ -346,36 +150,27 @@ margin: 20px 0 8px; padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,2
 .report strong { color: #e8e6e0; font-weight: 600; }
 .report em { color: #d4a853; font-style: italic; }
 .report hr { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 14px 0; }
-.zbtn {
-display: inline-flex; align-items: center; gap: 6px; margin-top: 16px;
-padding: 10px 16px; background-color: rgba(212,168,83,0.15);
-border: 1px solid rgba(212,168,83,0.3); border-radius: 9px;
-color: #d4a853; font-family: ‘Outfit’, sans-serif; font-size: 13px; font-weight: 500; text-decoration: none;
-}
+.zbtn { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; padding: 10px 16px; background-color: rgba(212,168,83,0.15); border: 1px solid rgba(212,168,83,0.3); border-radius: 9px; color: #d4a853; font-family: ‘Outfit’, sans-serif; font-size: 13px; font-weight: 500; text-decoration: none; }
 .zbtn svg { width: 14px; height: 14px; }
 
-/* ── HISTORY ── */
+/* HISTORY */
 .lscroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 20px; }
 .lscroll::-webkit-scrollbar { width: 0; }
 .empty { text-align: center; padding: 60px 20px; color: #5a5860; }
 .empty svg { width: 44px; height: 44px; fill: #1e2030; margin-bottom: 14px; }
 .empty h3 { font-family: ‘Cormorant Garamond’, Georgia, serif; font-size: 20px; color: #9b9899; margin-bottom: 6px; }
 .empty p { font-size: 13px; line-height: 1.6; }
-.hitem {
-background-color: #161821; border: 1px solid rgba(255,255,255,0.08);
-border-radius: 14px; padding: 14px 16px; margin-bottom: 10px;
-cursor: pointer; -webkit-tap-highlight-color: transparent;
-transition: border-color 0.15s;
-}
+.hitem { background-color: #161821; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .hitem:active { background-color: #1e2030; }
 .hitem-top { display: flex; justify-content: space-between; margin-bottom: 4px; }
 .hitem-name { font-size: 14px; font-weight: 500; color: #e8e6e0; }
 .hitem-date { font-size: 11px; color: #5a5860; }
-.hitem-addr { font-size: 13px; color: #9b9899; margin-bottom: 8px; }
+.hitem-addr { font-size: 13px; color: #9b9899; margin-bottom: 6px; }
+.hitem-type { font-size: 11px; color: #d4a853; margin-bottom: 6px; }
 .hitem-tags { display: flex; flex-wrap: wrap; gap: 5px; }
 .htag { font-size: 11px; color: #5a5860; background-color: #1e2030; border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 2px 8px; }
 
-/* ── SETTINGS ── */
+/* SETTINGS */
 .sscroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 20px; }
 .sscroll::-webkit-scrollbar { width: 0; }
 .sgroup { margin-bottom: 24px; }
@@ -389,13 +184,7 @@ transition: border-color 0.15s;
 .kwrap input { padding-right: 44px; }
 .ktoggle { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #5a5860; padding: 4px; line-height: 0; -webkit-tap-highlight-color: transparent; }
 .ktoggle svg { width: 16px; height: 16px; display: block; }
-.bsave {
-margin-top: 12px; padding: 9px 18px;
-background-color: #1e2030; border: 1px solid rgba(255,255,255,0.08); border-radius: 9px;
-font-family: ‘Outfit’, sans-serif; font-size: 13px; font-weight: 500; color: #9b9899;
-cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
--webkit-tap-highlight-color: transparent; transition: border-color 0.15s, color 0.15s;
-}
+.bsave { margin-top: 12px; padding: 9px 18px; background-color: #1e2030; border: 1px solid rgba(255,255,255,0.08); border-radius: 9px; font-family: ‘Outfit’, sans-serif; font-size: 13px; font-weight: 500; color: #9b9899; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; -webkit-tap-highlight-color: transparent; }
 .bsave svg { width: 13px; height: 13px; }
 .bsave:active { border-color: rgba(212,168,83,0.4); color: #d4a853; }
 .savedmsg { font-size: 12px; color: #4caf78; margin-top: 8px; display: none; align-items: center; gap: 5px; }
@@ -407,69 +196,37 @@ cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
 .isteps li strong { color: #e8e6e0; }
 .bdanger { padding: 9px 16px; background: none; border: 1px solid rgba(224,92,92,0.3); border-radius: 9px; color: #e05c5c; font-family: ‘Outfit’, sans-serif; font-size: 13px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .bdanger:active { background-color: rgba(224,92,92,0.1); }
-
-/* ── SCREEN TOP ── */
 .stop { padding: 20px 20px 4px; flex-shrink: 0; }
 .stop h2 { font-family: ‘Cormorant Garamond’, Georgia, serif; font-size: 24px; font-weight: 600; color: #e8e6e0; margin-bottom: 3px; }
 .stop h2 em { color: #d4a853; font-style: italic; }
 .stop p { font-size: 13px; color: #5a5860; }
 
-/* ── PRINT ── */
 @media print {
-  html, body {
-    overflow: visible !important;
-    height: auto !important;
-    background: white !important;
-    color: #111 !important;
-  }
-  .app { height: auto !important; overflow: visible !important; }
-  .scr { display: none !important; }
-  .overlay {
-    position: static !important;
-    display: block !important;
-    background: white !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-  .drawer {
-    max-height: none !important;
-    height: auto !important;
-    border: none !important;
-    border-radius: 0 !important;
-    background: white !important;
-    display: block !important;
-    animation: none !important;
-  }
-  .dbody {
-    overflow: visible !important;
-    height: auto !important;
-    max-height: none !important;
-    padding: 20px !important;
-  }
-  .dpill, .dbtns, .zbtn, .hdr, .abar, .confirm-overlay { display: none !important; }
-  .dhead { border-bottom: 1px solid #ddd !important; padding: 12px 20px !important; }
-  .dtitle { color: #111 !important; font-size: 20px !important; }
-  .daddr { color: #555 !important; }
-  .report h2 { color: #7a5c10 !important; border-color: #ddd !important; }
-  .report h3 { color: #111 !important; }
-  .report p, .report li { color: #333 !important; }
-  .report strong { color: #111 !important; }
-  .report hr { border-color: #ddd !important; }
+html, body { overflow: visible !important; height: auto !important; background: white !important; color: #111 !important; }
+.app { height: auto !important; overflow: visible !important; }
+.scr { display: none !important; }
+.overlay { position: static !important; display: block !important; background: white !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+.drawer { max-height: none !important; height: auto !important; border: none !important; border-radius: 0 !important; background: white !important; display: block !important; animation: none !important; }
+.dbody { overflow: visible !important; height: auto !important; max-height: none !important; padding: 20px !important; }
+.dpill, .dbtns, .zbtn, .hdr, .abar, .confirm-overlay { display: none !important; }
+.dhead { border-bottom: 1px solid #ddd !important; padding: 12px 20px !important; }
+.dtitle { color: #111 !important; font-size: 20px !important; }
+.daddr { color: #555 !important; }
+.report h2 { color: #7a5c10 !important; border-color: #ddd !important; }
+.report h3 { color: #111 !important; }
+.report p, .report li { color: #333 !important; }
+.report strong { color: #111 !important; }
+.report hr { border-color: #ddd !important; }
 }
-
 </style>
 
 </head>
 <body>
 <div class="app">
 
-<!-- HEADER -->
-
 <header class="hdr">
   <div class="logo">
-    <div class="logo-mark">
-      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-    </div>
+    <div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
     <span class="logo-text">ADU <em>Pro</em></span>
   </div>
   <nav class="topnav">
@@ -488,19 +245,13 @@ cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
   </nav>
 </header>
 
-<!-- ANALYZE SCREEN -->
+<!-- ANALYZE -->
 
 <div class="scr active" id="scr-analyze">
-
   <div id="notice-setup" class="notice warn hidden">
     <svg class="ni" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-    <div>
-      <strong>API key needed</strong>
-      Add your Anthropic key before running.
-      <a class="nlink" onclick="goTo('settings')">Go to Settings &rarr;</a>
-    </div>
+    <div><strong>API key needed</strong>Add your Anthropic key before running. <a class="nlink" onclick="goTo('settings')">Go to Settings &rarr;</a></div>
   </div>
-
   <div id="notice-error" class="notice err hidden">
     <svg class="ni" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
     <div id="errtext">Error.</div>
@@ -511,33 +262,21 @@ cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
 ```
 <!-- PROPERTY -->
 <div class="sec">
-  <div class="sec-lbl">
-    <div class="dot"></div>
-    <span class="sec-title">Property</span>
-    <span class="sec-sub">Required</span>
-  </div>
+  <div class="sec-lbl"><div class="dot"></div><span class="sec-title">Property</span><span class="sec-sub">Required</span></div>
   <div class="addr-card">
     <div class="addr-lbl">Street Address</div>
     <input class="addr-main-input" type="text" id="inp-addr" placeholder="e.g. 1234 Elm Street" autocomplete="street-address" oninput="onAddrInput()">
-    <a id="zbadge" class="zbadge" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="10" height="10"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      Zoning Info
-    </a>
+    <a id="zbadge" class="zbadge" target="_blank" rel="noopener">Zoning Info</a>
     <div class="addr-row">
       <input class="inp-city" type="text" id="inp-city" placeholder="City" oninput="onAddrInput()">
       <select class="inp-state" id="inp-state">
         <option value="">State</option>
         <option value="CA" selected>CA</option>
-        <option value="WA">WA</option>
-        <option value="OR">OR</option>
-        <option value="AZ">AZ</option>
-        <option value="TX">TX</option>
-        <option value="FL">FL</option>
-        <option value="CO">CO</option>
-        <option value="NY">NY</option>
-        <option value="NV">NV</option>
-        <option value="ID">ID</option>
-        <option value="Other">Other</option>
+        <option value="WA">WA</option><option value="OR">OR</option>
+        <option value="AZ">AZ</option><option value="TX">TX</option>
+        <option value="FL">FL</option><option value="CO">CO</option>
+        <option value="NY">NY</option><option value="NV">NV</option>
+        <option value="ID">ID</option><option value="Other">Other</option>
       </select>
     </div>
   </div>
@@ -545,45 +284,88 @@ cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
 
 <div class="hr"></div>
 
+<!-- PROPERTY TYPE — NEW SECTION -->
+<div class="sec">
+  <div class="sec-lbl"><div class="dot"></div><span class="sec-title">Property Type</span><span class="sec-sub">Required for accuracy</span></div>
+  <div class="chips" id="chips-proptype">
+    <div class="chip" data-val="Single Family Residential (SFR)"    onclick="selectOne('chips-proptype',this)">Single Family</div>
+    <div class="chip" data-val="Condo or Townhome"                   onclick="selectOne('chips-proptype',this)">Condo / Townhome</div>
+    <div class="chip" data-val="Duplex or Triplex (2-3 units)"       onclick="selectOne('chips-proptype',this)">Duplex / Triplex</div>
+    <div class="chip" data-val="Small Multifamily (4-9 units)"       onclick="selectOne('chips-proptype',this)">Multifamily 4-9</div>
+    <div class="chip" data-val="Large Multifamily (10+ units)"       onclick="selectOne('chips-proptype',this)">Multifamily 10+</div>
+    <div class="chip" data-val="Mixed Use (residential + commercial)" onclick="selectOne('chips-proptype',this)">Mixed Use</div>
+    <div class="chip" data-val="Commercial / Industrial"             onclick="selectOne('chips-proptype',this)">Commercial</div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- PROPERTY FLAGS — NEW SECTION -->
+<div class="sec">
+  <div class="sec-lbl"><div class="dot"></div><span class="sec-title">Property Details</span><span class="sec-sub">Select all that apply</span></div>
+  <div class="chips" id="chips-flags">
+    <div class="chip" data-val="Owner Occupied"                onclick="toggleChip(this)">Owner Occupied</div>
+    <div class="chip" data-val="Has Existing Unpermitted Unit" onclick="toggleChip(this)">Unpermitted Unit</div>
+    <div class="chip" data-val="Has Existing Garage"           onclick="toggleChip(this)">Has Garage</div>
+    <div class="chip" data-val="Has Existing Basement"         onclick="toggleChip(this)">Has Basement</div>
+    <div class="chip" data-val="Corner Lot"                    onclick="toggleChip(this)">Corner Lot</div>
+    <div class="chip" data-val="Alley Access"                  onclick="toggleChip(this)">Alley Access</div>
+    <div class="chip" data-val="Coastal Zone"                  onclick="toggleChip(this)">Coastal Zone</div>
+    <div class="chip" data-val="Fire Hazard Severity Zone"     onclick="toggleChip(this)">Fire Zone</div>
+    <div class="chip" data-val="Flood Zone"                    onclick="toggleChip(this)">Flood Zone</div>
+    <div class="chip" data-val="Disaster-Affected Area (post Feb 2025 emergency)" onclick="toggleChip(this)">Disaster Area</div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- CONSTRAINTS -->
+<div class="sec">
+  <div class="sec-lbl"><div class="dot"></div><span class="sec-title">Restrictions</span><span class="sec-sub">If any</span></div>
+  <div class="chips" id="chips-con">
+    <div class="chip grn" data-val="HOA"                    onclick="toggleChip(this)">HOA</div>
+    <div class="chip grn" data-val="Historic District/HPOZ" onclick="toggleChip(this)">Historic / HPOZ</div>
+    <div class="chip grn" data-val="Steep Slope/Hillside"   onclick="toggleChip(this)">Steep Slope</div>
+    <div class="chip grn" data-val="Septic System"          onclick="toggleChip(this)">Septic</div>
+    <div class="chip grn" data-val="Well Water"             onclick="toggleChip(this)">Well Water</div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
 <!-- GOALS -->
 <div class="sec">
-  <div class="sec-lbl">
-    <div class="dot"></div>
-    <span class="sec-title">Goals</span>
-  </div>
+  <div class="sec-lbl"><div class="dot"></div><span class="sec-title">Goals &amp; Budget</span></div>
   <div style="margin-bottom:14px">
-    <div class="field"><label>Primary Objective</label></div>
+    <span class="field-lbl">Primary Objective</span>
     <div class="chips" id="chips-goal">
-      <div class="chip" data-val="Rental Income"          onclick="selectOne('chips-goal',this)">&#127960; Rental Income</div>
-      <div class="chip" data-val="House a Family Member"  onclick="selectOne('chips-goal',this)">&#128106; House Family</div>
-      <div class="chip" data-val="Increase Property Value" onclick="selectOne('chips-goal',this)">&#128200; Property Value</div>
-      <div class="chip" data-val="Multi-Generational Living" onclick="selectOne('chips-goal',this)">&#129309; Multi-Gen</div>
-      <div class="chip" data-val="Home Office or Studio"  onclick="selectOne('chips-goal',this)">&#128188; Office / Studio</div>
-      <div class="chip" data-val="Maximize Lot Utilization" onclick="selectOne('chips-goal',this)">&#129513; Maximize Lot</div>
+      <div class="chip" data-val="Rental Income"              onclick="selectOne('chips-goal',this)">&#127960; Rental Income</div>
+      <div class="chip" data-val="House a Family Member"      onclick="selectOne('chips-goal',this)">&#128106; House Family</div>
+      <div class="chip" data-val="Increase Property Value"    onclick="selectOne('chips-goal',this)">&#128200; Property Value</div>
+      <div class="chip" data-val="Multi-Generational Living"  onclick="selectOne('chips-goal',this)">&#129309; Multi-Gen</div>
+      <div class="chip" data-val="Home Office or Studio"      onclick="selectOne('chips-goal',this)">&#128188; Office / Studio</div>
+      <div class="chip" data-val="Maximize Lot Utilization"   onclick="selectOne('chips-goal',this)">&#129513; Maximize Lot</div>
+      <div class="chip" data-val="Legalize Unpermitted Unit"  onclick="selectOne('chips-goal',this)">&#9989; Legalize Unit</div>
     </div>
   </div>
   <div>
-    <div class="field"><label>Budget Range</label></div>
+    <span class="field-lbl">Budget Range</span>
     <div class="chips" id="chips-budget">
-      <div class="chip" data-val="Under $100k"    onclick="selectOne('chips-budget',this)">Under $100k</div>
-      <div class="chip" data-val="$100k-$150k"    onclick="selectOne('chips-budget',this)">$100k&ndash;$150k</div>
-      <div class="chip" data-val="$150k-$200k"    onclick="selectOne('chips-budget',this)">$150k&ndash;$200k</div>
-      <div class="chip" data-val="$200k-$300k"    onclick="selectOne('chips-budget',this)">$200k&ndash;$300k</div>
-      <div class="chip" data-val="$300k+"         onclick="selectOne('chips-budget',this)">$300k+</div>
-      <div class="chip" data-val="Flexible"       onclick="selectOne('chips-budget',this)">Flexible</div>
+      <div class="chip" data-val="Under $100k"  onclick="selectOne('chips-budget',this)">Under $100k</div>
+      <div class="chip" data-val="$100k-$150k"  onclick="selectOne('chips-budget',this)">$100k&ndash;$150k</div>
+      <div class="chip" data-val="$150k-$200k"  onclick="selectOne('chips-budget',this)">$150k&ndash;$200k</div>
+      <div class="chip" data-val="$200k-$300k"  onclick="selectOne('chips-budget',this)">$200k&ndash;$300k</div>
+      <div class="chip" data-val="$300k+"       onclick="selectOne('chips-budget',this)">$300k+</div>
+      <div class="chip" data-val="Flexible"     onclick="selectOne('chips-budget',this)">Flexible</div>
     </div>
   </div>
 </div>
 
 <div class="hr"></div>
 
-<!-- ADU TYPES -->
+<!-- ADU INTEREST -->
 <div class="sec">
-  <div class="sec-lbl">
-    <div class="dot"></div>
-    <span class="sec-title">ADU Interest</span>
-    <span class="sec-sub">Select all that apply</span>
-  </div>
+  <div class="sec-lbl"><div class="dot"></div><span class="sec-title">ADU Interest</span><span class="sec-sub">Select all that apply</span></div>
   <div class="chips" id="chips-adu">
     <div class="chip" data-val="Detached ADU"      onclick="toggleChip(this)">Detached ADU</div>
     <div class="chip" data-val="Attached ADU"      onclick="toggleChip(this)">Attached ADU</div>
@@ -596,53 +378,21 @@ cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
 
 <div class="hr"></div>
 
-<!-- CONSTRAINTS -->
-<div class="sec">
-  <div class="sec-lbl">
-    <div class="dot"></div>
-    <span class="sec-title">Known Constraints</span>
-    <span class="sec-sub">If any</span>
-  </div>
-  <div class="chips" id="chips-con">
-    <div class="chip grn" data-val="HOA"                  onclick="toggleChip(this)">HOA</div>
-    <div class="chip grn" data-val="Historic District/HPOZ" onclick="toggleChip(this)">Historic</div>
-    <div class="chip grn" data-val="Flood Zone"           onclick="toggleChip(this)">Flood Zone</div>
-    <div class="chip grn" data-val="Steep Slope/Hillside" onclick="toggleChip(this)">Steep Slope</div>
-    <div class="chip grn" data-val="Septic System"        onclick="toggleChip(this)">Septic</div>
-    <div class="chip grn" data-val="Corner Lot"           onclick="toggleChip(this)">Corner Lot</div>
-    <div class="chip grn" data-val="Alley Access"         onclick="toggleChip(this)">Alley Access</div>
-    <div class="chip grn" data-val="Well Water"           onclick="toggleChip(this)">Well Water</div>
-    <div class="chip grn" data-val="Fire Hazard Zone"     onclick="toggleChip(this)">Fire Zone</div>
-  </div>
-</div>
-
-<div class="hr"></div>
-
 <!-- CLIENT & NOTES -->
 <div class="sec">
-  <div class="sec-lbl">
-    <div class="dot"></div>
-    <span class="sec-title">Client &amp; Notes</span>
-    <span class="sec-sub">Optional</span>
-  </div>
+  <div class="sec-lbl"><div class="dot"></div><span class="sec-title">Client &amp; Notes</span><span class="sec-sub">Optional</span></div>
   <div class="frow">
-    <div class="field">
-      <label>Client Name</label>
-      <input type="text" id="inp-client" placeholder="Jane Smith">
-    </div>
-    <div class="field">
-      <label>Phone</label>
-      <input type="tel" id="inp-phone" placeholder="(555) 000-0000">
-    </div>
+    <div class="field"><label>Client Name</label><input type="text" id="inp-client" placeholder="Jane Smith"></div>
+    <div class="field"><label>Phone</label><input type="tel" id="inp-phone" placeholder="(555) 000-0000"></div>
   </div>
   <div class="field">
     <label>Additional Notes</label>
-    <textarea id="inp-notes" placeholder="Special context, questions, existing structures, recent permits..." rows="3"></textarea>
+    <textarea id="inp-notes" placeholder="Lot size if known, existing structures, recent permit history, specific questions..." rows="3"></textarea>
   </div>
 </div>
 ```
 
-  </div><!-- /scroll -->
+  </div>
 
   <div class="abar">
     <button class="btn-run" id="runBtn" onclick="runAnalysis()">
@@ -651,26 +401,19 @@ cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
     </button>
     <button class="btn-clr" onclick="askClearForm()">Clear</button>
   </div>
+</div>
 
-</div><!-- /scr-analyze -->
-
-<!-- HISTORY SCREEN -->
+<!-- HISTORY -->
 
 <div class="scr" id="scr-history">
-  <div class="stop">
-    <h2>Analysis <em>History</em></h2>
-    <p>Tap any report to view it again</p>
-  </div>
+  <div class="stop"><h2>Analysis <em>History</em></h2><p>Tap any report to view it again</p></div>
   <div class="lscroll" id="histlist"></div>
 </div>
 
-<!-- SETTINGS SCREEN -->
+<!-- SETTINGS -->
 
 <div class="scr" id="scr-settings">
-  <div class="stop">
-    <h2><em>Settings</em></h2>
-    <p>API key and preferences</p>
-  </div>
+  <div class="stop"><h2><em>Settings</em></h2><p>API key and preferences</p></div>
   <div class="sscroll">
 
 ```
@@ -680,21 +423,13 @@ cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
     <div class="scard-title">Your API Key</div>
     <div class="scard-desc">Stored only on this device. Never sent anywhere except directly to Anthropic. Get yours at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>.</div>
     <div class="kwrap">
-      <div class="field" style="margin:0">
-        <input type="password" id="inp-apikey" placeholder="sk-ant-api03-...">
-      </div>
+      <div class="field" style="margin:0"><input type="password" id="inp-apikey" placeholder="sk-ant-api03-..."></div>
       <button class="ktoggle" id="keytoggle" title="Show/hide key">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
       </button>
     </div>
-    <button class="bsave" onclick="saveApiKey()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-      Save Key
-    </button>
-    <div class="savedmsg" id="msg-key">
-      <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-      API key saved
-    </div>
+    <button class="bsave" onclick="saveApiKey()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Save Key</button>
+    <div class="savedmsg" id="msg-key"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>API key saved</div>
   </div>
 </div>
 
@@ -702,39 +437,22 @@ cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
   <span class="sgroup-lbl">&#127970; Company Info</span>
   <div class="scard">
     <div class="frow">
-      <div class="field">
-        <label>Company Name</label>
-        <input type="text" id="inp-company" placeholder="Your Company">
-      </div>
-      <div class="field">
-        <label>Your Name</label>
-        <input type="text" id="inp-consultant" placeholder="Your Name">
-      </div>
+      <div class="field"><label>Company Name</label><input type="text" id="inp-company" placeholder="Your Company"></div>
+      <div class="field"><label>Your Name</label><input type="text" id="inp-consultant" placeholder="Your Name"></div>
     </div>
     <div class="field">
       <label>Default State</label>
       <select id="inp-defstate">
         <option value="">Select</option>
-        <option value="CA">CA</option>
-        <option value="WA">WA</option>
-        <option value="OR">OR</option>
-        <option value="AZ">AZ</option>
-        <option value="TX">TX</option>
-        <option value="FL">FL</option>
-        <option value="CO">CO</option>
-        <option value="NY">NY</option>
-        <option value="NV">NV</option>
-        <option value="ID">ID</option>
+        <option value="CA">CA</option><option value="WA">WA</option>
+        <option value="OR">OR</option><option value="AZ">AZ</option>
+        <option value="TX">TX</option><option value="FL">FL</option>
+        <option value="CO">CO</option><option value="NY">NY</option>
+        <option value="NV">NV</option><option value="ID">ID</option>
       </select>
     </div>
-    <button class="bsave" onclick="saveSettings()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-      Save Settings
-    </button>
-    <div class="savedmsg" id="msg-settings">
-      <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-      Settings saved
-    </div>
+    <button class="bsave" onclick="saveSettings()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Save Settings</button>
+    <div class="savedmsg" id="msg-settings"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Settings saved</div>
   </div>
 </div>
 
@@ -743,7 +461,7 @@ cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
   <div class="scard">
     <ul class="isteps">
       <li>Open this page in <strong>Safari</strong> (not Chrome)</li>
-      <li>Tap the <strong>Share</strong> button &mdash; box with arrow at the bottom</li>
+      <li>Tap the <strong>Share</strong> button &mdash; box with arrow at bottom</li>
       <li>Scroll and tap <strong>&ldquo;Add to Home Screen&rdquo;</strong></li>
       <li>Tap <strong>Add</strong> &mdash; ADU Pro appears on your home screen</li>
       <li>Launch from home screen &mdash; runs <strong>fullscreen like a native app</strong></li>
@@ -754,18 +472,18 @@ cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
 <div class="sgroup">
   <span class="sgroup-lbl">&#9888;&#65039; Data</span>
   <div class="scard">
-    <div class="scard-desc" style="margin-bottom:12px">All data stays on this device only. Nothing leaves except API calls to Anthropic when you run an analysis.</div>
+    <div class="scard-desc" style="margin-bottom:12px">All data stays on this device only. Nothing leaves except API calls to Anthropic.</div>
     <button class="bdanger" onclick="askClearHistory()">Clear All History</button>
   </div>
 </div>
 ```
 
   </div>
-</div><!-- /settings -->
+</div>
 
 </div><!-- /app -->
 
-<!-- RESULT DRAWER -->
+<!-- DRAWER -->
 
 <div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
   <div class="drawer" id="drawer">
@@ -788,206 +506,116 @@ cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
   </div>
 </div>
 
-<!-- CUSTOM CONFIRM DIALOG (replaces window.confirm for PWA compatibility) -->
+<!-- CUSTOM CONFIRM -->
 
 <div class="confirm-overlay" id="confirmOverlay">
   <div class="confirm-box">
     <div class="confirm-msg" id="confirmMsg">Are you sure?</div>
     <div class="confirm-btns">
       <button class="confirm-cancel" onclick="confirmRespond(false)">Cancel</button>
-      <button class="confirm-ok"     onclick="confirmRespond(true)">OK</button>
+      <button class="confirm-ok"     onclick="confirmRespond(true)">Confirm</button>
     </div>
   </div>
 </div>
 
 <script>
-// ─────────────────────────────────────────────────────────
-// CUSTOM CONFIRM (works in PWA standalone mode on iOS)
-// ─────────────────────────────────────────────────────────
+// ── CONFIRM ──
 var confirmCallback = null;
+function showConfirm(msg, cb) { document.getElementById('confirmMsg').textContent = msg; confirmCallback = cb; document.getElementById('confirmOverlay').classList.add('open'); }
+function confirmRespond(r) { document.getElementById('confirmOverlay').classList.remove('open'); var cb = confirmCallback; confirmCallback = null; if (cb) cb(r); }
 
-function showConfirm(message, callback) {
-  document.getElementById('confirmMsg').textContent = message;
-  confirmCallback = callback;
-  document.getElementById('confirmOverlay').classList.add('open');
-}
-
-function confirmRespond(result) {
-  document.getElementById('confirmOverlay').classList.remove('open');
-  var cb = confirmCallback;
-  confirmCallback = null;
-  if (cb) cb(result);
-}
-
-// ─────────────────────────────────────────────────────────
-// CHIP HANDLERS
-// ─────────────────────────────────────────────────────────
+// ── CHIPS ──
 function selectOne(groupId, el) {
   var chips = document.querySelectorAll('#' + groupId + ' .chip');
-  for (var i = 0; i < chips.length; i++) {
-    chips[i].classList.remove('sel');
-  }
-  // Toggle off if already selected
-  if (el.classList.contains('sel')) {
-    el.classList.remove('sel');
-  } else {
-    el.classList.add('sel');
-  }
+  for (var i = 0; i < chips.length; i++) chips[i].classList.remove('sel');
+  el.classList.add('sel');
 }
+function toggleChip(el) { el.classList.toggle('sel'); }
 
-function toggleChip(el) {
-  el.classList.toggle('sel');
-}
-
-// ─────────────────────────────────────────────────────────
-// NAVIGATION
-// ─────────────────────────────────────────────────────────
-function goTo(screenName) {
+// ── NAV ──
+function goTo(name) {
   var screens = document.querySelectorAll('.scr');
-  for (var i = 0; i < screens.length; i++) {
-    screens[i].classList.remove('active');
-  }
+  for (var i = 0; i < screens.length; i++) screens[i].classList.remove('active');
   var btns = document.querySelectorAll('.tnb');
-  for (var j = 0; j < btns.length; j++) {
-    btns[j].classList.remove('active');
-  }
-  var target = document.getElementById('scr-' + screenName);
-  if (target) {
-    target.classList.add('active');
-    // Reset scroll position on screen entry
-    var scrollEl = target.querySelector('.scroll, .lscroll, .sscroll');
-    if (scrollEl) scrollEl.scrollTop = 0;
-  }
-  var btn = document.querySelector('[data-screen="' + screenName + '"]');
-  if (btn) btn.classList.add('active');
-  if (screenName === 'history') renderHistory();
+  for (var j = 0; j < btns.length; j++) btns[j].classList.remove('active');
+  var t = document.getElementById('scr-' + name);
+  if (t) { t.classList.add('active'); var s = t.querySelector('.scroll,.lscroll,.sscroll'); if (s) s.scrollTop = 0; }
+  var b = document.querySelector('[data-screen="' + name + '"]');
+  if (b) b.classList.add('active');
+  if (name === 'history') renderHistory();
 }
 
-// ─────────────────────────────────────────────────────────
-// ZIMAS / ADDRESS
-// ─────────────────────────────────────────────────────────
+// ── ZIMAS BADGE ──
 function onAddrInput() {
-  var addr  = document.getElementById('inp-addr').value.trim();
-  var city  = document.getElementById('inp-city').value.trim();
+  var addr = document.getElementById('inp-addr').value.trim();
+  var city = document.getElementById('inp-city').value.trim();
   var state = document.getElementById('inp-state').value;
   var badge = document.getElementById('zbadge');
-
-  if (!addr) {
-    badge.classList.remove('show');
-    return;
-  }
-
-  var url, label;
-  var cityLower = city.toLowerCase();
-  // ZIMAS only covers the City of Los Angeles
-  var isLACity = cityLower === 'los angeles' || cityLower === 'la';
-
+  if (!addr) { badge.classList.remove('show'); return; }
+  var cityL = city.toLowerCase();
+  var isLACity = cityL === 'los angeles' || cityL === 'la';
   if (state === 'CA' && isLACity) {
-    url = 'https://zimas.lacity.org/?search=' + encodeURIComponent(addr);
-    label = 'ZIMAS';
-  } else if (state === 'CA') {
-    url = 'https://www.google.com/search?q=' + encodeURIComponent(addr + ' ' + city + ' CA zoning ADU');
-    label = 'Zoning Info';
+    badge.href = 'https://zimas.lacity.org/?search=' + encodeURIComponent(addr);
+    badge.textContent = 'ZIMAS';
   } else {
-    url = 'https://www.google.com/search?q=' + encodeURIComponent(addr + ' ' + city + ' ' + state + ' zoning ADU');
-    label = 'Zoning Info';
+    badge.href = 'https://www.google.com/search?q=' + encodeURIComponent(addr + ' ' + city + ' ' + state + ' zoning ADU parcel');
+    badge.textContent = 'Zoning Info';
   }
-
-  badge.href = url;
-  badge.textContent = '';
-  // Rebuild badge content
-  var svgNS = 'http://www.w3.org/2000/svg';
-  var svg = document.createElementNS(svgNS, 'svg');
-  svg.setAttribute('viewBox', '0 0 24 24');
-  svg.setAttribute('fill', 'none');
-  svg.setAttribute('stroke', 'currentColor');
-  svg.setAttribute('stroke-width', '2');
-  svg.setAttribute('width', '10');
-  svg.setAttribute('height', '10');
-  var p = document.createElementNS(svgNS, 'path');
-  p.setAttribute('d', 'M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6');
-  var poly = document.createElementNS(svgNS, 'polyline');
-  poly.setAttribute('points', '15 3 21 3 21 9');
-  var line = document.createElementNS(svgNS, 'line');
-  line.setAttribute('x1', '10'); line.setAttribute('y1', '14');
-  line.setAttribute('x2', '21'); line.setAttribute('y2', '3');
-  svg.appendChild(p); svg.appendChild(poly); svg.appendChild(line);
-  badge.appendChild(svg);
-  badge.appendChild(document.createTextNode(' ' + label));
   badge.classList.add('show');
 }
 
-// ─────────────────────────────────────────────────────────
-// FORM DATA (reads data-val, not textContent)
-// ─────────────────────────────────────────────────────────
+// ── FORM DATA ──
+function getChipVals(groupId) {
+  var vals = [];
+  var els = document.querySelectorAll('#' + groupId + ' .chip.sel');
+  for (var i = 0; i < els.length; i++) vals.push(els[i].getAttribute('data-val'));
+  return vals;
+}
+function getSingleChip(groupId) {
+  var el = document.querySelector('#' + groupId + ' .chip.sel');
+  return el ? el.getAttribute('data-val') : '';
+}
 function getFormData() {
-  var adus = [];
-  var aduEls = document.querySelectorAll('#chips-adu .chip.sel');
-  for (var i = 0; i < aduEls.length; i++) {
-    adus.push(aduEls[i].getAttribute('data-val'));
-  }
-  var cons = [];
-  var conEls = document.querySelectorAll('#chips-con .chip.sel');
-  for (var i = 0; i < conEls.length; i++) {
-    cons.push(conEls[i].getAttribute('data-val'));
-  }
-  var goalEl   = document.querySelector('#chips-goal .chip.sel');
-  var budgetEl = document.querySelector('#chips-budget .chip.sel');
   return {
-    addr:   document.getElementById('inp-addr').value.trim(),
-    city:   document.getElementById('inp-city').value.trim(),
-    state:  document.getElementById('inp-state').value,
-    goal:   goalEl   ? goalEl.getAttribute('data-val')   : '',
-    budget: budgetEl ? budgetEl.getAttribute('data-val') : '',
-    adus:   adus,
-    cons:   cons,
-    client: document.getElementById('inp-client').value.trim(),
-    phone:  document.getElementById('inp-phone').value.trim(),
-    notes:  document.getElementById('inp-notes').value.trim()
+    addr:     document.getElementById('inp-addr').value.trim(),
+    city:     document.getElementById('inp-city').value.trim(),
+    state:    document.getElementById('inp-state').value,
+    proptype: getSingleChip('chips-proptype'),
+    flags:    getChipVals('chips-flags'),
+    cons:     getChipVals('chips-con'),
+    goal:     getSingleChip('chips-goal'),
+    budget:   getSingleChip('chips-budget'),
+    adus:     getChipVals('chips-adu'),
+    client:   document.getElementById('inp-client').value.trim(),
+    phone:    document.getElementById('inp-phone').value.trim(),
+    notes:    document.getElementById('inp-notes').value.trim()
   };
 }
 
 function askClearForm() {
-  showConfirm('Clear all fields? This cannot be undone.', function(ok) {
+  showConfirm('Clear all fields?', function(ok) {
     if (!ok) return;
     var ids = ['inp-addr','inp-city','inp-client','inp-phone','inp-notes'];
-    for (var i = 0; i < ids.length; i++) {
-      document.getElementById(ids[i]).value = '';
-    }
-    var defState = storeGet('adu_defstate') || 'CA';
-    document.getElementById('inp-state').value = defState;
-    var allSel = document.querySelectorAll('.chip.sel');
-    for (var j = 0; j < allSel.length; j++) {
-      allSel[j].classList.remove('sel');
-    }
+    for (var i = 0; i < ids.length; i++) document.getElementById(ids[i]).value = '';
+    document.getElementById('inp-state').value = storeGet('adu_defstate') || 'CA';
+    var all = document.querySelectorAll('.chip.sel');
+    for (var j = 0; j < all.length; j++) all[j].classList.remove('sel');
     document.getElementById('zbadge').classList.remove('show');
     hideError();
     document.getElementById('scroll-analyze').scrollTop = 0;
   });
 }
 
-// ─────────────────────────────────────────────────────────
-// RUN ANALYSIS (with AbortController timeout)
-// ─────────────────────────────────────────────────────────
+// ── RUN ANALYSIS ──
 function runAnalysis() {
   var apiKey = storeGet('adu_apikey');
-  if (!apiKey || apiKey.indexOf('sk-') !== 0) {
-    showError('No API key found. Go to Settings and add your Anthropic API key first.');
-    return;
-  }
+  if (!apiKey || apiKey.indexOf('sk-') !== 0) { showError('No API key. Go to Settings first.'); return; }
   var f = getFormData();
-  if (!f.addr || !f.city) {
-    showError('Please enter a street address and city to continue.');
-    return;
-  }
+  if (!f.addr || !f.city) { showError('Please enter a street address and city.'); return; }
   hideError();
   setLoading(true);
-
   var controller = new AbortController();
-  var timeoutId = setTimeout(function() {
-    controller.abort();
-  }, 60000); // 60 second timeout
-
+  var tid = setTimeout(function() { controller.abort(); }, 60000);
   fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     signal: controller.signal,
@@ -999,19 +627,18 @@ function runAnalysis() {
     },
     body: JSON.stringify({
       model: 'claude-sonnet-4-5',
-      max_tokens: 2400,
-      system: buildSystemPrompt(),
-      messages: [{ role: 'user', content: buildUserPrompt(f) }]
+      max_tokens: 2800,
+      system: buildSystem(),
+      messages: [{ role: 'user', content: buildPrompt(f) }]
     })
   })
   .then(function(res) {
-    clearTimeout(timeoutId);
+    clearTimeout(tid);
     if (!res.ok) {
       return res.json().catch(function() { return {}; }).then(function(e) {
         var msg = (e && e.error && e.error.message) ? e.error.message : 'API error ' + res.status;
-        if (res.status === 401) msg = 'Invalid API key. Please check your key in Settings.';
-        if (res.status === 429) msg = 'Rate limit reached. Please wait a moment and try again.';
-        if (res.status === 500) msg = 'Anthropic server error. Please try again in a moment.';
+        if (res.status === 401) msg = 'Invalid API key. Check Settings.';
+        if (res.status === 429) msg = 'Rate limit. Wait a moment and try again.';
         throw new Error(msg);
       });
     }
@@ -1027,339 +654,243 @@ function runAnalysis() {
     if (!text) throw new Error('Empty response. Please try again.');
     var f2 = getFormData();
     var record = {
-      id:      Date.now(),
-      date:    new Date().toISOString(),
-      client:  f2.client || 'Unknown',
+      id: Date.now(), date: new Date().toISOString(),
+      client: f2.client || 'Unknown',
       address: f2.addr + ', ' + f2.city + (f2.state ? ', ' + f2.state : ''),
-      state:   f2.state,
-      adus:    f2.adus,
-      result:  text
+      proptype: f2.proptype,
+      state: f2.state, adus: f2.adus, result: text
     };
     saveRecord(record);
     setLoading(false);
     openDrawer(record);
   })
   .catch(function(err) {
-    clearTimeout(timeoutId);
+    clearTimeout(tid);
     setLoading(false);
-    var msg = (err && err.message) ? err.message : 'Unexpected error. Please try again.';
-    if (err && err.name === 'AbortError') {
-      msg = 'Request timed out after 60 seconds. Check your connection and try again.';
-    } else if (msg.toLowerCase().indexOf('failed to fetch') >= 0 || msg.toLowerCase().indexOf('networkerror') >= 0) {
-      msg = 'Network error. Check your connection and try again.';
-    }
+    var msg = (err && err.message) ? err.message : 'Unexpected error.';
+    if (err && err.name === 'AbortError') msg = 'Request timed out after 60 seconds.';
+    else if (msg.toLowerCase().indexOf('failed to fetch') >= 0) msg = 'Network error. Check your connection.';
     showError(msg);
   });
 }
 
-function buildSystemPrompt() {
+// ── SYSTEM PROMPT — embedded 2025/2026 law knowledge ──
+function buildSystem() {
   var company    = storeGet('adu_company')    || 'our ADU consulting firm';
   var consultant = storeGet('adu_consultant') || 'the consultant';
+
   return 'You are a senior ADU feasibility consultant at ' + company + ', working with ' + consultant + '. '
-    + 'You have deep expertise in California ADU law (AB 68, AB 881, SB 9, SB 13, AB 2221, AB 976, and 2024 updates), '
-    + 'city-specific ADU ordinances across CA, state law overrides (800 sqft by-right, 4ft setbacks, etc.), '
-    + 'current construction costs per sqft by region and type, local permit fees and timelines, '
-    + 'and rental market comps by neighborhood. '
-    + 'When given an address, use your knowledge of that area to infer likely zoning, lot characteristics, and neighborhood context. '
-    + 'Produce a professional, specific feasibility report in markdown. '
-    + 'Flag any items requiring ZIMAS or city planning verification. '
-    + 'Be specific with dollar figures and timelines. Write concisely for a professional audience — no filler.';
+    + 'You have deep, current expertise in California ADU law. '
+    + 'CRITICAL: The following 2025 California ADU laws are now in effect and MUST inform every report:\n\n'
+
+    + 'SB 543 (effective Oct 2025): Clarifies that on single-family lots, local agencies MUST ministerially approve: '
+    + '(1) one attached internal ADU, (2) one JADU (up to 500 sqft interior livable space), AND (3) one detached new-construction ADU up to 800 sqft. '
+    + 'All square footages are now net interior livable space. JADUs under 500 sqft and ADUs under 500 sqft are exempt from school fees. '
+    + 'Local ADU ordinances not submitted to HCD within 60 days of adoption are null and void.\n\n'
+
+    + 'SB 1211 (effective Jan 2025): On lots with existing MULTIFAMILY dwellings, local agencies must allow up to EIGHT detached ADUs '
+    + '(not to exceed the number of existing units). Replaces the old maximum of two. No parking replacement required when spaces are converted. '
+    + 'This is a major opportunity for multifamily property owners.\n\n'
+
+    + 'AB 1154 (effective Jan 2026): Local agencies can ONLY impose owner-occupancy requirements on JADUs that share sanitation facilities '
+    + 'with the primary dwelling. JADUs with independent bathrooms are now exempt from owner-occupancy mandates.\n\n'
+
+    + 'AB 462 (effective Oct 2025): In counties under a governor-declared state of emergency (Feb 1 2025 or later), '
+    + 'detached ADUs CAN receive a certificate of occupancy before the primary dwelling if the primary was destroyed/damaged. '
+    + 'Also: coastal ADU permit applications must be approved or denied within 60 days, with automatic approval if the agency fails to act.\n\n'
+
+    + 'AB 2533 (effective Jan 2025): Local agencies CANNOT deny permits for unpermitted ADUs/JADUs built before Jan 1 2020 based on '
+    + 'building standard violations. Inspectors must focus on recommending health/safety corrections, not denial. '
+    + 'This is a major legalization opportunity.\n\n'
+
+    + 'AB 976 (effective Jan 2025): Owner-occupancy requirements for ADUs are permanently eliminated (no sunset date). '
+    + 'Does not apply to JADUs with shared sanitation (see AB 1154).\n\n'
+
+    + 'SB 9 (2025): Local ADU ordinances inconsistent with state law are null and void. HCD enforcement teeth are real.\n\n'
+
+    + 'When analyzing a property:\n'
+    + '- ALWAYS identify the property type first and apply the correct rule set\n'
+    + '- For MULTIFAMILY properties: lead with SB 1211 opportunity (up to 8 ADUs), not SFR rules\n'
+    + '- For properties with unpermitted units: highlight AB 2533 legalization pathway prominently\n'
+    + '- For coastal properties: note the 60-day approval requirement under AB 462\n'
+    + '- For disaster-affected areas: note the CofO exception under AB 462\n'
+    + '- Flag which specific 2025/2026 laws are most relevant to THIS property\n'
+    + '- Be specific with dollar figures and timelines\n'
+    + '- Flag items requiring ZIMAS or city planning verification\n'
+    + '- Write concisely for a professional consultant audience';
 }
 
-function buildUserPrompt(f) {
-  var lines = [];
-  lines.push('## ADU Feasibility Request');
-  lines.push('**Address:** ' + f.addr + ', ' + f.city + (f.state ? ', ' + f.state : ''));
-  if (f.goal)        lines.push('**Goal:** ' + f.goal);
-  if (f.budget)      lines.push('**Budget:** ' + f.budget);
-  if (f.adus.length) lines.push('**ADU Types of Interest:** ' + f.adus.join(', '));
-  if (f.cons.length) lines.push('**Known Constraints:** ' + f.cons.join(', '));
-  if (f.client)      lines.push('**Client:** ' + f.client + (f.phone ? ' - ' + f.phone : ''));
-  if (f.notes)       lines.push('**Notes:** ' + f.notes);
-  lines.push('');
-  lines.push('Provide a complete ADU feasibility report with these 8 sections:');
-  lines.push('');
-  lines.push('## 1. Executive Summary');
-  lines.push('2-3 sentence verdict and top recommendation.');
-  lines.push('');
-  lines.push('## 2. What\'s Likely Allowed');
-  lines.push('Probable zoning, permitted ADU types, setbacks, height limits, lot coverage max, state law protections that apply. Flag what requires ZIMAS or city planning verification.');
-  lines.push('');
-  lines.push('## 3. Recommended Approach');
-  lines.push('Best ADU type(s) given goals, budget, and constraints. Specific rationale.');
-  lines.push('');
-  lines.push('## 4. Cost Estimate');
-  lines.push('Construction range (low/mid/high) for recommended type. Current $/sqft for this region. Typical soft costs for this jurisdiction.');
-  lines.push('');
-  lines.push('## 5. Rental Income Potential');
-  lines.push('Estimated monthly rent range for this neighborhood, ROI estimate, payback period.');
-  lines.push('');
-  lines.push('## 6. Permitting and Timeline');
-  lines.push('Typical process for this city, expected timeline in months, any expedite options.');
-  lines.push('');
-  lines.push('## 7. Key Risks');
-  lines.push('Top 3 risks or red flags for this property or jurisdiction.');
-  lines.push('');
-  lines.push('## 8. Next Steps');
-  lines.push('Specific action items in order for the consultant and client.');
-  return lines.join('\n');
+// ── USER PROMPT ──
+function buildPrompt(f) {
+  var L = [];
+  L.push('## ADU Feasibility Analysis Request');
+  L.push('**Address:** ' + f.addr + ', ' + f.city + (f.state ? ', ' + f.state : ''));
+
+  if (f.proptype) L.push('**Property Type:** ' + f.proptype);
+  else            L.push('**Property Type:** Unknown — please infer from address context');
+
+  if (f.flags.length)  L.push('**Property Details:** ' + f.flags.join(', '));
+  if (f.cons.length)   L.push('**Restrictions:** ' + f.cons.join(', '));
+  if (f.goal)          L.push('**Primary Goal:** ' + f.goal);
+  if (f.budget)        L.push('**Budget:** ' + f.budget);
+  if (f.adus.length)   L.push('**ADU Types of Interest:** ' + f.adus.join(', '));
+  if (f.client)        L.push('**Client:** ' + f.client + (f.phone ? ' - ' + f.phone : ''));
+  if (f.notes)         L.push('**Notes:** ' + f.notes);
+
+  L.push('');
+  L.push('Provide a complete feasibility report with these sections:');
+  L.push('');
+  L.push('## 1. Executive Summary');
+  L.push('2-3 sentence verdict. If multifamily, lead with SB 1211 opportunity. If unpermitted unit exists, lead with AB 2533 pathway.');
+  L.push('');
+  L.push('## 2. Property Assessment');
+  L.push('What type of property this appears to be, probable zoning, likely lot characteristics for this neighborhood. What ADU rules apply based on property type. Note what must be verified.');
+  L.push('');
+  L.push('## 3. ADU Opportunities');
+  L.push('All ADU types permitted for THIS property type under current state and local law. Include specific unit counts (e.g. SB 1211 allows up to 8 on multifamily). Flag any special opportunities like legalization pathways.');
+  L.push('');
+  L.push('## 4. Recommended Approach');
+  L.push('Best ADU strategy given the goals, budget, and property type. Specific rationale.');
+  L.push('');
+  L.push('## 5. Cost Estimate');
+  L.push('Construction range (low/mid/high). Current $/sqft for this region and ADU type. Typical soft costs and permit fees for this jurisdiction.');
+  L.push('');
+  L.push('## 6. Financial Return');
+  L.push('Estimated monthly rent for this neighborhood, annual gross income, estimated ROI, payback period. For multifamily, model multiple units if applicable.');
+  L.push('');
+  L.push('## 7. Permitting and Timeline');
+  L.push('Process for this city/county, expected timeline, any expedite options. Note any 2025/2026 law advantages (60-day coastal rule, ministerial approval, etc.).');
+  L.push('');
+  L.push('## 8. Applicable 2025/2026 Laws');
+  L.push('List the specific new laws most relevant to this property and how they help (or add requirements).');
+  L.push('');
+  L.push('## 9. Key Risks');
+  L.push('Top 3 risks for this property, property type, or jurisdiction.');
+  L.push('');
+  L.push('## 10. Next Steps');
+  L.push('Specific action items in order for the consultant and client.');
+  return L.join('\n');
 }
 
-// ─────────────────────────────────────────────────────────
-// DRAWER
-// ─────────────────────────────────────────────────────────
+// ── DRAWER ──
 function openDrawer(record) {
-  document.getElementById('drawer-title').textContent =
-    (record.client && record.client !== 'Unknown') ? record.client + ' - Report' : 'Feasibility Report';
-  document.getElementById('drawer-addr').textContent = record.address || '';
+  document.getElementById('drawer-title').textContent = (record.client && record.client !== 'Unknown') ? record.client + ' - Report' : 'Feasibility Report';
+  document.getElementById('drawer-addr').textContent = record.address + (record.proptype ? ' \u00b7 ' + record.proptype : '');
   document.getElementById('drawer-body').innerHTML = markdownToHtml(record.result) + buildZimasLink(record);
   document.getElementById('overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-
-function closeDrawer() {
-  document.getElementById('overlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function handleOverlayClick(e) {
-  if (e.target === document.getElementById('overlay')) closeDrawer();
-}
-
+function closeDrawer() { document.getElementById('overlay').classList.remove('open'); document.body.style.overflow = ''; }
+function handleOverlayClick(e) { if (e.target === document.getElementById('overlay')) closeDrawer(); }
 function buildZimasLink(record) {
   var street = (record.address || '').split(',')[0];
   var state  = record.state || '';
-  var url, label;
-  if (state === 'CA') {
-    url   = 'https://zimas.lacity.org/?search=' + encodeURIComponent(street);
-    label = 'Verify on ZIMAS (LA City)';
-  } else {
-    url   = 'https://www.google.com/search?q=' + encodeURIComponent(street + ' ' + state + ' parcel zoning ADU');
-    label = 'Look Up Zoning Info';
-  }
+  var url = state === 'CA'
+    ? 'https://zimas.lacity.org/?search=' + encodeURIComponent(street)
+    : 'https://www.google.com/search?q=' + encodeURIComponent(street + ' ' + state + ' parcel zoning ADU');
+  var label = state === 'CA' ? 'Verify on ZIMAS (LA City)' : 'Look Up Zoning Info';
   return '<a class="zbtn" href="' + url + '" target="_blank" rel="noopener">'
-    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'
-    + '<path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>'
-    + '<polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>'
-    + label + '</a>';
+    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>'
+    + '<polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>' + label + '</a>';
 }
 
-// ─────────────────────────────────────────────────────────
-// MARKDOWN → HTML
-// ─────────────────────────────────────────────────────────
+// ── MARKDOWN ──
 function markdownToHtml(text) {
   if (!text) return '';
-  text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  text = text.replace(/^### (.+)$/gm, '<h3>$1</h3>');
-  text = text.replace(/^## (.+)$/gm,  '<h2>$1</h2>');
-  text = text.replace(/^# (.+)$/gm,   '<h1>$1</h1>');
-  text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  text = text.replace(/\*(.+?)\*/g,     '<em>$1</em>');
-  text = text.replace(/^---+$/gm, '<hr>');
-
+  text = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  text = text.replace(/^### (.+)$/gm,'<h3>$1</h3>');
+  text = text.replace(/^## (.+)$/gm,'<h2>$1</h2>');
+  text = text.replace(/^# (.+)$/gm,'<h1>$1</h1>');
+  text = text.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+  text = text.replace(/\*(.+?)\*/g,'<em>$1</em>');
+  text = text.replace(/^---+$/gm,'<hr>');
   var blocks = text.split(/\n\n+/);
   var out = [];
   for (var i = 0; i < blocks.length; i++) {
     var b = blocks[i].trim();
     if (!b) continue;
     if (/^<(h[123]|hr)/.test(b)) { out.push(b); continue; }
-
     var blines = b.split('\n');
-    // Unordered list check
-    var isUL = blines.every(function(l) {
-      return !l.trim() || l.trim().charAt(0) === '-' || l.trim().charAt(0) === '*';
-    }) && blines.some(function(l) { return l.trim().length > 0; });
-
+    var isUL = blines.every(function(l) { return !l.trim() || l.trim().charAt(0) === '-' || l.trim().charAt(0) === '*'; })
+            && blines.some(function(l) { return l.trim().length > 0; });
     if (isUL) {
-      var liHtml = '';
+      var li = '';
       for (var j = 0; j < blines.length; j++) {
-        var t = blines[j].trim();
-        if (!t) continue;
-        // Strip leading - or *
+        var t = blines[j].trim(); if (!t) continue;
         if (t.charAt(0) === '-' || t.charAt(0) === '*') t = t.slice(1).trim();
-        liHtml += '<li>' + t + '</li>';
+        li += '<li>' + t + '</li>';
       }
-      out.push('<ul>' + liHtml + '</ul>');
-      continue;
+      out.push('<ul>' + li + '</ul>'); continue;
     }
-
-    // Ordered list check
-    var isOL = blines.every(function(l) {
-      return !l.trim() || /^\d+\./.test(l.trim());
-    }) && blines.some(function(l) { return l.trim().length > 0; });
-
+    var isOL = blines.every(function(l) { return !l.trim() || /^\d+\./.test(l.trim()); })
+            && blines.some(function(l) { return l.trim().length > 0; });
     if (isOL) {
-      var oHtml = '';
+      var oi = '';
       for (var k = 0; k < blines.length; k++) {
-        var t2 = blines[k].trim();
-        if (!t2) continue;
-        t2 = t2.replace(/^\d+\.\s*/, '');
-        oHtml += '<li>' + t2 + '</li>';
+        var t2 = blines[k].trim(); if (!t2) continue;
+        t2 = t2.replace(/^\d+\.\s*/,''); oi += '<li>' + t2 + '</li>';
       }
-      out.push('<ol>' + oHtml + '</ol>');
-      continue;
+      out.push('<ol>' + oi + '</ol>'); continue;
     }
-
-    out.push('<p>' + b.replace(/\n/g, '<br>') + '</p>');
+    out.push('<p>' + b.replace(/\n/g,'<br>') + '</p>');
   }
   return out.join('\n');
 }
 
-// ─────────────────────────────────────────────────────────
-// UI HELPERS
-// ─────────────────────────────────────────────────────────
+// ── UI ──
 function setLoading(on) {
   var btn = document.getElementById('runBtn');
-  if (on) {
-    btn.disabled = true;
-    btn.innerHTML = '<div class="spin"></div> Analyzing...';
-  } else {
-    btn.disabled = false;
-    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="17" height="17"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Run Analysis';
-  }
+  if (on) { btn.disabled = true; btn.innerHTML = '<div class="spin"></div> Analyzing...'; }
+  else { btn.disabled = false; btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="17" height="17"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Run Analysis'; }
 }
+function showError(msg) { document.getElementById('errtext').textContent = msg; document.getElementById('notice-error').classList.remove('hidden'); document.getElementById('notice-error').scrollIntoView({behavior:'smooth',block:'nearest'}); }
+function hideError() { document.getElementById('notice-error').classList.add('hidden'); }
+function showSaved(id) { var el = document.getElementById(id); el.classList.add('show'); setTimeout(function() { el.classList.remove('show'); }, 2500); }
+function checkApiKeyBanner() { var k = storeGet('adu_apikey'); if (k && k.indexOf('sk-') === 0) document.getElementById('notice-setup').classList.add('hidden'); else document.getElementById('notice-setup').classList.remove('hidden'); }
 
-function showError(msg) {
-  document.getElementById('errtext').textContent = msg;
-  document.getElementById('notice-error').classList.remove('hidden');
-  document.getElementById('notice-error').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
-
-function hideError() {
-  document.getElementById('notice-error').classList.add('hidden');
-}
-
-function showSaved(id) {
-  var el = document.getElementById(id);
-  el.classList.add('show');
-  setTimeout(function() { el.classList.remove('show'); }, 2500);
-}
-
-function checkApiKeyBanner() {
-  var key = storeGet('adu_apikey');
-  if (key && key.indexOf('sk-') === 0) {
-    document.getElementById('notice-setup').classList.add('hidden');
-  } else {
-    document.getElementById('notice-setup').classList.remove('hidden');
-  }
-}
-
-// ─────────────────────────────────────────────────────────
-// SETTINGS
-// ─────────────────────────────────────────────────────────
-function saveApiKey() {
-  var key = document.getElementById('inp-apikey').value.trim();
-  if (!key) { showError('Please enter your API key.'); return; }
-  storeSet('adu_apikey', key);
-  showSaved('msg-key');
-  checkApiKeyBanner();
-}
-
-function saveSettings() {
-  storeSet('adu_company',    document.getElementById('inp-company').value.trim());
-  storeSet('adu_consultant', document.getElementById('inp-consultant').value.trim());
-  storeSet('adu_defstate',   document.getElementById('inp-defstate').value);
-  showSaved('msg-settings');
-}
-
+// ── SETTINGS ──
+function saveApiKey() { var k = document.getElementById('inp-apikey').value.trim(); if (!k) { showError('Please enter your API key.'); return; } storeSet('adu_apikey',k); showSaved('msg-key'); checkApiKeyBanner(); }
+function saveSettings() { storeSet('adu_company', document.getElementById('inp-company').value.trim()); storeSet('adu_consultant', document.getElementById('inp-consultant').value.trim()); storeSet('adu_defstate', document.getElementById('inp-defstate').value); showSaved('msg-settings'); }
 function loadSavedSettings() {
-  var key = storeGet('adu_apikey');
-  if (key) document.getElementById('inp-apikey').value = key;
-  var co = storeGet('adu_company');
-  if (co) document.getElementById('inp-company').value = co;
-  var ct = storeGet('adu_consultant');
-  if (ct) document.getElementById('inp-consultant').value = ct;
+  var k = storeGet('adu_apikey'); if (k) document.getElementById('inp-apikey').value = k;
+  var co = storeGet('adu_company'); if (co) document.getElementById('inp-company').value = co;
+  var ct = storeGet('adu_consultant'); if (ct) document.getElementById('inp-consultant').value = ct;
   var ds = storeGet('adu_defstate') || 'CA';
   document.getElementById('inp-defstate').value = ds;
-  document.getElementById('inp-state').value     = ds;
+  document.getElementById('inp-state').value = ds;
 }
+document.getElementById('keytoggle').addEventListener('click', function() { var i = document.getElementById('inp-apikey'); i.type = (i.type === 'password') ? 'text' : 'password'; });
 
-document.getElementById('keytoggle').addEventListener('click', function() {
-  var inp = document.getElementById('inp-apikey');
-  inp.type = (inp.type === 'password') ? 'text' : 'password';
-});
-
-// ─────────────────────────────────────────────────────────
-// HISTORY
-// ─────────────────────────────────────────────────────────
-function saveRecord(record) {
-  var h = getHistory();
-  h.unshift(record);
-  storeSet('adu_history', JSON.stringify(h.slice(0, 60)));
-}
-
-function getHistory() {
-  try { return JSON.parse(storeGet('adu_history') || '[]'); }
-  catch(e) { return []; }
-}
-
-function askClearHistory() {
-  showConfirm('Delete all history? This cannot be undone.', function(ok) {
-    if (!ok) return;
-    localStorage.removeItem('adu_history');
-    renderHistory();
-  });
-}
-
+// ── HISTORY ──
+function saveRecord(r) { var h = getHistory(); h.unshift(r); storeSet('adu_history', JSON.stringify(h.slice(0,60))); }
+function getHistory() { try { return JSON.parse(storeGet('adu_history') || '[]'); } catch(e) { return []; } }
+function askClearHistory() { showConfirm('Delete all history? This cannot be undone.', function(ok) { if (!ok) return; localStorage.removeItem('adu_history'); renderHistory(); }); }
 function renderHistory() {
-  var listEl = document.getElementById('histlist');
-  var h = getHistory();
-  if (!h.length) {
-    listEl.innerHTML = '<div class="empty">'
-      + '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>'
-      + '<h3>No analyses yet</h3>'
-      + '<p>Run your first analysis and it will appear here.</p>'
-      + '</div>';
-    return;
-  }
+  var el = document.getElementById('histlist'), h = getHistory();
+  if (!h.length) { el.innerHTML = '<div class="empty"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><h3>No analyses yet</h3><p>Run your first analysis and it will appear here.</p></div>'; return; }
   var html = '';
   for (var i = 0; i < h.length; i++) {
     var r = h[i];
-    var d = new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    var d = new Date(r.date).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
     var tags = '';
-    if (r.adus) {
-      for (var j = 0; j < r.adus.length; j++) {
-        tags += '<span class="htag">' + escHtml(r.adus[j]) + '</span>';
-      }
-    }
+    if (r.adus) for (var j = 0; j < r.adus.length; j++) tags += '<span class="htag">' + escHtml(r.adus[j]) + '</span>';
     html += '<div class="hitem" onclick="reopenRecord(' + r.id + ')">'
-      + '<div class="hitem-top">'
-      + '<span class="hitem-name">' + escHtml(r.client)  + '</span>'
-      + '<span class="hitem-date">' + d + '</span>'
-      + '</div>'
+      + '<div class="hitem-top"><span class="hitem-name">' + escHtml(r.client) + '</span><span class="hitem-date">' + d + '</span></div>'
       + '<div class="hitem-addr">' + escHtml(r.address) + '</div>'
+      + (r.proptype ? '<div class="hitem-type">' + escHtml(r.proptype) + '</div>' : '')
       + (tags ? '<div class="hitem-tags">' + tags + '</div>' : '')
       + '</div>';
   }
-  listEl.innerHTML = html;
+  el.innerHTML = html;
 }
+function reopenRecord(id) { var h = getHistory(); for (var i = 0; i < h.length; i++) { if (h[i].id === id) { openDrawer(h[i]); return; } } }
 
-function reopenRecord(id) {
-  var h = getHistory();
-  for (var i = 0; i < h.length; i++) {
-    if (h[i].id === id) { openDrawer(h[i]); return; }
-  }
-}
+// ── STORAGE ──
+function storeGet(k) { try { return localStorage.getItem(k); } catch(e) { return null; } }
+function storeSet(k,v) { try { localStorage.setItem(k,v); } catch(e) {} }
+function escHtml(s) { if (!s) return ''; return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-// ─────────────────────────────────────────────────────────
-// STORAGE
-// ─────────────────────────────────────────────────────────
-function storeGet(key) {
-  try { return localStorage.getItem(key); } catch(e) { return null; }
-}
-
-function storeSet(key, val) {
-  try { localStorage.setItem(key, val); } catch(e) {}
-}
-
-function escHtml(str) {
-  if (!str) return '';
-  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-
-// ─────────────────────────────────────────────────────────
-// BOOT (runs immediately - script is at bottom of body)
-// ─────────────────────────────────────────────────────────
+// ── BOOT ──
 loadSavedSettings();
 checkApiKeyBanner();
 renderHistory();
